@@ -8,22 +8,36 @@ class HomePageBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Text('Today\'s Top Pick', style: Theme.of(context).textTheme.titleMedium,),
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SizedBox(height: 15),
+        Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: Center(
+            child: Text(
+              'Today\'s Top Pick',
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
           ),
-          const SizedBox(height: 10),
-          SizedBox(height: MediaQuery.of(context).size.width-40,child:const  DisplayTile()),
-          const SizedBox(height: 10),
-          Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Text('Cuisines',style: Theme.of(context).textTheme.titleMedium,),
+        ),
+        const SizedBox(height: 10),
+        SizedBox(
+          height: MediaQuery.of(context).size.width - 40,
+          child: const DisplayTile(),
+        ),
+        const SizedBox(height: 10),
+        Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: Center(
+            child: Text(
+              'Cuisines',
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
           ),
-          const SizedBox(height: 10),
-          const CategoriesChip()
-        ],
-      );
+        ),
+        const SizedBox(height: 10),
+        const CategoriesChip(),
+      ],
+    );
   }
 }
