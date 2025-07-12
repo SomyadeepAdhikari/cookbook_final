@@ -10,7 +10,7 @@ class HomePageBody extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SizedBox(height: 15),
+        const SizedBox(height: 10),
         Padding(
           padding: const EdgeInsets.all(12.0),
           child: Center(
@@ -22,7 +22,7 @@ class HomePageBody extends StatelessWidget {
         ),
         const SizedBox(height: 10),
         SizedBox(
-          height: MediaQuery.of(context).size.width - 40,
+          height: MediaQuery.of(context).size.width - 100,
           child: const DisplayTile(),
         ),
         const SizedBox(height: 10),

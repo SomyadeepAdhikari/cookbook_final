@@ -102,9 +102,6 @@ class _InformationState extends State<Information> {
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
                           fontSize: 28,
-                          shadows: [
-                            Shadow(blurRadius: 8, color: Colors.black26),
-                          ],
                         ),
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
@@ -121,11 +118,11 @@ class _InformationState extends State<Information> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: Card(
-                  color: colorScheme.secondary.withOpacity(0.08),
+                  color: Theme.of(context).colorScheme.tertiary,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20),
                   ),
-                  elevation: 3,
+                  elevation: 20,
                   child: Padding(
                     padding: const EdgeInsets.all(20.0),
                     child: Column(
@@ -219,11 +216,11 @@ class _InformationState extends State<Information> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: Card(
-                  color: colorScheme.secondary.withOpacity(0.08),
+                  color: Theme.of(context).colorScheme.tertiary,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20),
                   ),
-                  elevation: 3,
+                  elevation: 20,
                   child: Padding(
                     padding: const EdgeInsets.all(20.0),
                     child: Column(

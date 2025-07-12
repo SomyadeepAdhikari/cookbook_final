@@ -42,7 +42,7 @@ class _FavoritesTileState extends State<FavoritesTile> {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          color: Colors.green.shade100,
+          color: Theme.of(context).colorScheme.primary,
         ),
         padding: const EdgeInsets.all(5),
         margin: const EdgeInsets.all(10.0),
@@ -50,9 +50,20 @@ class _FavoritesTileState extends State<FavoritesTile> {
           leading: CircleAvatar(
             backgroundColor: Colors.white,
             maxRadius: 40,
-            child: Image.network(widget.image, fit: BoxFit.fitWidth),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(40),
+              child: Image.network(
+                widget.image,
+                fit: BoxFit.cover,
+                width: 80,
+                height: 80,
+              ),
+            ),
           ),
-          title: Text(widget.title),
+          title: Text(
+            widget.title,
+            style: Theme.of(context).textTheme.bodySmall,
+          ),
           trailing: IconButton(
             onPressed: () {
               showDialog(
