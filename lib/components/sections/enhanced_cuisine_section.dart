@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../cards/cuisine_category_card.dart';
 import '../../pages/cuisines_page.dart';
+import '../../pages/all_cuisines_page.dart';
 import '../../globals.dart';
 import '../../theme/colors.dart';
 
@@ -108,7 +109,29 @@ class _EnhancedCuisineSectionState extends State<EnhancedCuisineSection> {
               ),
               TextButton(
                 onPressed: () {
-                  // Navigate to full cuisine list
+                  Navigator.of(context).push(
+                    PageRouteBuilder(
+                      pageBuilder: (context, animation, secondaryAnimation) =>
+                          const AllCuisinesPage(),
+                      transitionsBuilder:
+                          (context, animation, secondaryAnimation, child) {
+                            const begin = Offset(1.0, 0.0);
+                            const end = Offset.zero;
+                            const curve = Curves.easeInOutCubic;
+
+                            var tween = Tween(
+                              begin: begin,
+                              end: end,
+                            ).chain(CurveTween(curve: curve));
+
+                            return SlideTransition(
+                              position: animation.drive(tween),
+                              child: child,
+                            );
+                          },
+                      transitionDuration: const Duration(milliseconds: 400),
+                    ),
+                  );
                 },
                 child: Row(
                   mainAxisSize: MainAxisSize.min,

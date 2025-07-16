@@ -4,6 +4,7 @@ import '../theme/colors.dart';
 import '../components/inputs/glassmorphic_search_bar.dart';
 import '../components/sections/enhanced_cuisine_section.dart';
 import '../components/sections/enhanced_popular_section.dart';
+import 'featured_recipes_page.dart';
 
 class HomePageBody extends StatefulWidget {
   const HomePageBody({super.key});
@@ -194,7 +195,29 @@ class _HomePageBodyState extends State<HomePageBody> {
                 ),
                 TextButton(
                   onPressed: () {
-                    // Navigate to see all recipes
+                    Navigator.of(context).push(
+                      PageRouteBuilder(
+                        pageBuilder: (context, animation, secondaryAnimation) =>
+                            const FeaturedRecipesPage(),
+                        transitionsBuilder:
+                            (context, animation, secondaryAnimation, child) {
+                              const begin = Offset(1.0, 0.0);
+                              const end = Offset.zero;
+                              const curve = Curves.easeInOutCubic;
+
+                              var tween = Tween(
+                                begin: begin,
+                                end: end,
+                              ).chain(CurveTween(curve: curve));
+
+                              return SlideTransition(
+                                position: animation.drive(tween),
+                                child: child,
+                              );
+                            },
+                        transitionDuration: const Duration(milliseconds: 400),
+                      ),
+                    );
                   },
                   child: Row(
                     mainAxisSize: MainAxisSize.min,

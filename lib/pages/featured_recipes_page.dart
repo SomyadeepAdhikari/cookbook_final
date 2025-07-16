@@ -1,31 +1,24 @@
 import 'dart:convert';
-
-import 'package:cookbook_final/pages/search_page.dart';
-import 'package:cookbook_final/components/chips/modern_category_chip.dart';
-import 'package:cookbook_final/components/cards/ios_recipe_list_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:cookbook_final/util/secrets.dart';
 import 'package:http/http.dart' as http;
+import '../util/secrets.dart';
 import '../theme/colors.dart';
 import '../theme/animations.dart';
+import '../components/cards/ios_recipe_list_card.dart';
 import '../components/layout/gradient_background.dart';
 import '../components/navigation/glassmorphic_app_bar.dart';
-import '../globals.dart';
 
-class CuisinesPage extends StatefulWidget {
-  final String cuisineSearch;
-  const CuisinesPage({super.key, required this.cuisineSearch});
+class FeaturedRecipesPage extends StatefulWidget {
+  const FeaturedRecipesPage({super.key});
 
   @override
-  State<CuisinesPage> createState() => _CuisinesPageState();
+  State<FeaturedRecipesPage> createState() => _FeaturedRecipesPageState();
 }
 
-class _CuisinesPageState extends State<CuisinesPage>
+class _FeaturedRecipesPageState extends State<FeaturedRecipesPage>
     with SingleTickerProviderStateMixin {
   late Future<Map<String, dynamic>> recipes;
-  late String searchRecipe = '';
-  String selectedCuisine = '';
   int _currentOffset = 0;
   final int _itemsPerPage = 20;
   List<dynamic> _allRecipes = [];
@@ -33,52 +26,17 @@ class _CuisinesPageState extends State<CuisinesPage>
   final ScrollController _scrollController = ScrollController();
   late AnimationController _animationController;
 
-  // Cuisine data with emojis
-  final Map<String, String> cuisineEmojis = {
-    'African': '🌍',
-    'Asian': '🥢',
-    'American': '🍔',
-    'British': '🇬🇧',
-    'Cajun': '🌶️',
-    'Caribbean': '🏖️',
-    'Chinese': '🥡',
-    'Eastern European': '🥟',
-    'European': '🍷',
-    'French': '🥐',
-    'German': '🍺',
-    'Greek': '🫒',
-    'Indian': '🍛',
-    'Irish': '☘️',
-    'Italian': '🍝',
-    'Japanese': '🍣',
-    'Jewish': '🕊️',
-    'Korean': '🥢',
-    'Latin American': '🌮',
-    'Mediterranean': '🫒',
-    'Mexican': '🌮',
-    'Middle Eastern': '🥙',
-    'Nordic': '🐟',
-    'Southern': '🍑',
-    'Spanish': '🥘',
-    'Thai': '🌶️',
-    'Turkish': '🥙',
-    'Vietnamese': '🍜',
-  };
-
   @override
   void initState() {
-    searchRecipe = widget.cuisineSearch;
-    selectedCuisine = widget.cuisineSearch;
-
+    super.initState();
     _animationController = AnimationController(
       duration: AppAnimations.pageTransition,
       vsync: this,
     );
     _animationController.forward();
 
-    recipes = getSearchRecipe(searchRecipe);
+    recipes = getRecipes(offset: 0);
     _scrollController.addListener(_onScroll);
-    super.initState();
   }
 
   @override
@@ -104,8 +62,7 @@ class _CuisinesPageState extends State<CuisinesPage>
     });
 
     try {
-      final newRecipes = await getSearchRecipe(
-        searchRecipe,
+      final newRecipes = await getRecipes(
         offset: _currentOffset + _itemsPerPage,
       );
       final newRecipesList = newRecipes['results'] as List;
@@ -121,29 +78,27 @@ class _CuisinesPageState extends State<CuisinesPage>
     }
   }
 
-  Future<Map<String, dynamic>> getSearchRecipe(
-    String? search, {
-    int offset = 0,
-  }) async {
-    final searchQuery = search == 'All' ? '' : search;
+  Future<Map<String, dynamic>> getRecipes({int offset = 0}) async {
     try {
-      final res = await http.get(
+      final response = await http.get(
         Uri.parse(
-          'https://api.spoonacular.com/recipes/complexSearch?apiKey=$spoonacularapi&cuisine=$searchQuery&addRecipeInformation=true&number=$_itemsPerPage&offset=$offset',
+          'https://api.spoonacular.com/recipes/complexSearch?apiKey=$spoonacularapi&addRecipeInformation=true&fillIngredients=true&number=$_itemsPerPage&offset=$offset',
         ),
       );
-      final data = jsonDecode(res.body);
-      if (data['totalResults'] == 0) {
-        throw 'No Results Found';
+
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        if (offset == 0) {
+          setState(() {
+            _allRecipes = List.from(data['results']);
+          });
+        }
+        return data;
+      } else {
+        throw Exception('Failed to load recipes');
       }
-      if (offset == 0) {
-        setState(() {
-          _allRecipes = List.from(data['results']);
-        });
-      }
-      return data;
     } catch (e) {
-      throw 'Connection Error';
+      throw Exception('Connection error: $e');
     }
   }
 
@@ -158,7 +113,7 @@ class _CuisinesPageState extends State<CuisinesPage>
         backgroundColor: Colors.transparent,
         extendBodyBehindAppBar: true,
         appBar: GlassmorphicAppBar(
-          title: '$searchRecipe Cuisine',
+          title: 'Featured Recipes',
           leading: Container(
             margin: const EdgeInsets.only(left: 8),
             decoration: BoxDecoration(
@@ -197,20 +152,14 @@ class _CuisinesPageState extends State<CuisinesPage>
               ),
               child: IconButton(
                 icon: Icon(
-                  Icons.search_rounded,
+                  Icons.filter_list_rounded,
                   color: isDark
                       ? AppColors.darkOnSurface
                       : AppColors.lightOnSurface,
                   size: 20,
                 ),
                 onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return const SafeArea(child: SearchPage());
-                      },
-                    ),
-                  );
+                  // TODO: Implement filter functionality
                 },
               ),
             ),
@@ -219,58 +168,19 @@ class _CuisinesPageState extends State<CuisinesPage>
         body: SafeArea(
           child: FadeTransition(
             opacity: _animationController,
-            child: Column(
-              children: [
-                // Category Chips Section
-                Container(
-                  height: 80,
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    physics: const BouncingScrollPhysics(),
-                    padding: const EdgeInsets.symmetric(horizontal: 24),
-                    itemCount: cuisines.length,
-                    itemBuilder: (context, index) {
-                      final cuisine = cuisines[index];
-                      if (cuisine == 'All') return const SizedBox.shrink();
+            child: FutureBuilder<Map<String, dynamic>>(
+              future: recipes,
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return _buildLoadingState(context);
+                }
 
-                      return Padding(
-                        padding: const EdgeInsets.only(right: 12),
-                        child: ModernCategoryChip(
-                          label: cuisine,
-                          emoji: cuisineEmojis[cuisine] ?? '🍽️',
-                          isSelected: selectedCuisine == cuisine,
-                          onTap: () {
-                            setState(() {
-                              selectedCuisine = cuisine;
-                              searchRecipe = cuisine;
-                              _currentOffset = 0;
-                              _allRecipes.clear();
-                            });
-                            recipes = getSearchRecipe(searchRecipe);
-                          },
-                        ),
-                      );
-                    },
-                  ),
-                ),
+                if (snapshot.hasError) {
+                  return _buildErrorState(context, snapshot.error.toString());
+                }
 
-                // Recipe Results
-                Expanded(
-                  child: FutureBuilder(
-                    future: recipes,
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return _buildLoadingState(context);
-                      }
-                      if (snapshot.hasError) {
-                        return _buildErrorState(context);
-                      }
-                      return _buildRecipesList(context);
-                    },
-                  ),
-                ),
-              ],
+                return _buildRecipesList(context);
+              },
             ),
           ),
         ),
@@ -285,7 +195,7 @@ class _CuisinesPageState extends State<CuisinesPage>
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               color: theme.colorScheme.secondary.withOpacity(0.1),
@@ -295,10 +205,10 @@ class _CuisinesPageState extends State<CuisinesPage>
               strokeWidth: 3,
             ),
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: 16),
           Text(
-            'Finding $searchRecipe recipes...',
-            style: theme.textTheme.bodyLarge?.copyWith(
+            'Loading featured recipes...',
+            style: theme.textTheme.bodyMedium?.copyWith(
               color: theme.colorScheme.onSurface.withOpacity(0.7),
             ),
           ),
@@ -307,8 +217,10 @@ class _CuisinesPageState extends State<CuisinesPage>
     );
   }
 
-  Widget _buildErrorState(BuildContext context) {
+  Widget _buildErrorState(BuildContext context, String error) {
     final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(24.0),
@@ -319,28 +231,41 @@ class _CuisinesPageState extends State<CuisinesPage>
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: theme.colorScheme.error.withOpacity(0.1),
+                gradient: LinearGradient(
+                  colors: isDark
+                      ? AppColors.darkCardGradient
+                      : AppColors.cardGradient,
+                ),
               ),
               child: Icon(
-                Icons.restaurant_outlined,
+                Icons.wifi_off_rounded,
                 size: 48,
                 color: theme.colorScheme.error,
               ),
             ),
-            const SizedBox(height: 24),
+            const SizedBox(height: 16),
             Text(
-              'No $searchRecipe recipes found',
+              'Something went wrong',
               style: theme.textTheme.headlineSmall?.copyWith(
                 fontWeight: FontWeight.w600,
               ),
             ),
             const SizedBox(height: 8),
             Text(
-              'Try exploring other cuisines or check back later for new recipes.',
+              'Please check your connection and try again',
               style: theme.textTheme.bodyMedium?.copyWith(
                 color: theme.colorScheme.onSurface.withOpacity(0.7),
               ),
               textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 24),
+            FilledButton(
+              onPressed: () {
+                setState(() {
+                  recipes = getRecipes(offset: 0);
+                });
+              },
+              child: const Text('Try Again'),
             ),
           ],
         ),
@@ -359,45 +284,25 @@ class _CuisinesPageState extends State<CuisinesPage>
         SliverToBoxAdapter(
           child: Padding(
             padding: const EdgeInsets.all(24.0),
-            child: Row(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                  padding: const EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [
-                        theme.colorScheme.secondary,
-                        theme.colorScheme.secondary.withOpacity(0.8),
-                      ],
-                    ),
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  child: Text(
-                    cuisineEmojis[searchRecipe] ?? '🍽️',
-                    style: const TextStyle(fontSize: 24),
+                Text(
+                  'Handpicked for You',
+                  style: theme.textTheme.headlineMedium?.copyWith(
+                    fontWeight: FontWeight.w800,
+                    letterSpacing: -0.5,
                   ),
                 ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        '$searchRecipe Recipes',
-                        style: theme.textTheme.headlineMedium?.copyWith(
-                          fontWeight: FontWeight.w800,
-                          letterSpacing: -0.5,
-                        ),
-                      ),
-                      Text(
-                        '${_allRecipes.length}+ delicious recipes to explore',
-                        style: theme.textTheme.bodyMedium?.copyWith(
-                          color: theme.colorScheme.onSurface.withOpacity(0.7),
-                        ),
-                      ),
-                    ],
+                const SizedBox(height: 8),
+                Text(
+                  'Discover ${_allRecipes.length}+ carefully curated recipes by our culinary experts',
+                  style: theme.textTheme.bodyLarge?.copyWith(
+                    color: theme.colorScheme.onSurface.withOpacity(0.7),
+                    height: 1.4,
                   ),
                 ),
+                const SizedBox(height: 24),
               ],
             ),
           ),
