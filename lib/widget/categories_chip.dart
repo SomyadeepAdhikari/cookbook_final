@@ -11,37 +11,41 @@ class CategoriesChip extends StatefulWidget {
 }
 
 class _CategoriesChipState extends State<CategoriesChip> {
-  String selectedCuisine=cuisines[0];
+  String selectedCuisine = cuisines[0];
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-        height: (MediaQuery.of(context).size.width / 3.5),
-        child: CustomScrollView(
-          scrollDirection: Axis.horizontal,
-          slivers: [
-            SliverGrid(
-                delegate: SliverChildBuilderDelegate((context, index) {
-                  return GestureDetector(
-                    onTap: (){
-                      setState(() {
-                        selectedCuisine=cuisines[index];
-                      });
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context){
-                          return CuisinesPage(cuisineSearch: selectedCuisine);
-                        }));
-                    },
-                    child: CuisineTile(cuisineName: cuisines[index])
+      height: 120,
+      child: CustomScrollView(
+        scrollDirection: Axis.horizontal,
+        slivers: [
+          SliverGrid(
+            delegate: SliverChildBuilderDelegate((context, index) {
+              return GestureDetector(
+                onTap: () {
+                  setState(() {
+                    selectedCuisine = cuisines[index];
+                  });
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return CuisinesPage(cuisineSearch: selectedCuisine);
+                      },
+                    ),
                   );
-                }, 
-                childCount: cuisines.length),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 16,
-                  crossAxisSpacing: 16,
-                  childAspectRatio: 0.35)
-                )
-          ],
-        ));
+                },
+                child: CuisineTile(cuisineName: cuisines[index]),
+              );
+            }, childCount: cuisines.length),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              mainAxisSpacing: 12,
+              crossAxisSpacing: 12,
+              childAspectRatio: 1.2,
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

@@ -1,8 +1,10 @@
 import 'dart:convert';
-import 'package:cookbook_final/widget/grid_recipe_card.dart';
 import 'package:flutter/material.dart';
 import 'package:cookbook_final/util/secrets.dart';
 import 'package:http/http.dart' as http;
+import '../components/inputs/glassmorphic_search_bar.dart';
+import '../components/cards/modern_recipe_card.dart';
+import '../theme/colors.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -46,8 +48,10 @@ class _SearchPageState extends State<SearchPage> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
+    final isDark = theme.brightness == Brightness.dark;
+
     return Scaffold(
-      backgroundColor: theme.scaffoldBackgroundColor,
+      backgroundColor: Colors.transparent,
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -57,76 +61,30 @@ class _SearchPageState extends State<SearchPage> {
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
               child: Text(
                 'Search Recipes',
-                style: theme.textTheme.titleMedium?.copyWith(
+                style: theme.textTheme.headlineSmall?.copyWith(
                   fontWeight: FontWeight.bold,
-                  fontSize: 22,
-                  color: Colors.blueGrey,
+                  color: isDark
+                      ? AppColors.darkOnSurface
+                      : AppColors.lightOnSurface,
                 ),
               ),
             ),
             const SizedBox(height: 16),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: Material(
-                elevation: 2,
-                borderRadius: BorderRadius.circular(30),
-                child: TextField(
-                  onSubmitted: (value) {
-                    setState(() {
-                      recipes = getSearchRecipe(value);
-                    });
-                  },
-                  style: theme.textTheme.bodyMedium,
-                  controller: textEditingController,
-                  decoration: InputDecoration(
-                    contentPadding: const EdgeInsets.symmetric(
-                      vertical: 18,
-                      horizontal: 24,
-                    ),
-                    hintText: 'Search for recipes...',
-                    hintStyle: const TextStyle(
-                      color: Colors.black38,
-                      fontFamily: 'ArialRounded',
-                    ),
-                    filled: true,
-                    fillColor: colorScheme.secondary.withOpacity(0.08),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30),
-                      borderSide: BorderSide.none,
-                    ),
-                    suffixIcon: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        if (textEditingController.text.isNotEmpty)
-                          IconButton(
-                            icon: const Icon(Icons.clear),
-                            onPressed: () {
-                              setState(() {
-                                textEditingController.clear();
-                                recipes = getSearchRecipe('');
-                              });
-                            },
-                          ),
-                        IconButton(
-                          icon: Icon(
-                            Icons.search,
-                            color: colorScheme.secondary,
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              recipes = getSearchRecipe(
-                                textEditingController.text,
-                              );
-                            });
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
+
+            // Modern Search Bar
+            GlassmorphicSearchBar(
+              controller: textEditingController,
+              hintText: 'Search for delicious recipes...',
+              onSubmitted: (value) {
+                setState(() {
+                  recipes = getSearchRecipe(value);
+                });
+              },
+              onChanged: (value) {
+                // Optional: Implement real-time search
+              },
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 24),
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -162,19 +120,22 @@ class _SearchPageState extends State<SearchPage> {
                       );
                     }
                     return GridView.builder(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
                       itemCount: data['totalResults'] < 10
                           ? data['totalResults']
                           : 10,
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,
-                            childAspectRatio: 0.975,
+                            childAspectRatio: 0.9,
+                            crossAxisSpacing: 12,
+                            mainAxisSpacing: 12,
                           ),
                       itemBuilder: (context, index) {
                         final resultId = data['results'][index]['id'];
                         final name = data['results'][index]['title'];
                         final image = data['results'][index]['image'];
-                        return GridRecipeCard(
+                        return ModernRecipeCard(
                           id: resultId,
                           image: image,
                           title: name,
