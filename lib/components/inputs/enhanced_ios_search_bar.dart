@@ -127,8 +127,8 @@ class _EnhancedIOSSearchBarState extends State<EnhancedIOSSearchBar>
     // Dynamic border color based on focus state
     _borderColorAnimation = ColorTween(
       begin: isDark
-          ? AppColors.darkGlassStroke.withOpacity(0.3)
-          : AppColors.lightGlassStroke.withOpacity(0.3),
+          ? AppColors.darkGlassStroke.withValues(alpha: 0.3)
+          : AppColors.lightGlassStroke.withValues(alpha: 0.3),
       end: isDark ? AppColors.darkAccent : AppColors.lightAccent,
     ).animate(_focusAnimationController);
 
@@ -149,14 +149,14 @@ class _EnhancedIOSSearchBarState extends State<EnhancedIOSSearchBar>
                   BoxShadow(
                     color:
                         (isDark ? AppColors.darkAccent : AppColors.lightAccent)
-                            .withOpacity(0.3 * _glowAnimation.value),
+                            .withValues(alpha: 0.3 * _glowAnimation.value),
                     blurRadius: 20,
                     spreadRadius: 2,
                   ),
                 // Standard shadow
                 BoxShadow(
                   color: (isDark ? Colors.black : Colors.grey.shade400)
-                      .withOpacity(0.1),
+                      .withValues(alpha: 0.1),
                   blurRadius: 12,
                   offset: const Offset(0, 4),
                 ),
@@ -173,12 +173,12 @@ class _EnhancedIOSSearchBarState extends State<EnhancedIOSSearchBar>
                       end: Alignment.bottomRight,
                       colors: isDark
                           ? [
-                              AppColors.darkGlass.withOpacity(0.8),
-                              AppColors.darkGlass.withOpacity(0.6),
+                              AppColors.darkGlass.withValues(alpha: 0.8),
+                              AppColors.darkGlass.withValues(alpha: 0.6),
                             ]
                           : [
-                              AppColors.lightGlass.withOpacity(0.8),
-                              AppColors.lightGlass.withOpacity(0.6),
+                              AppColors.lightGlass.withValues(alpha: 0.8),
+                              AppColors.lightGlass.withValues(alpha: 0.6),
                             ],
                     ),
                     border: Border.all(
@@ -201,8 +201,8 @@ class _EnhancedIOSSearchBarState extends State<EnhancedIOSSearchBar>
                                       ? AppColors.darkAccent
                                       : AppColors.lightAccent)
                                 : (isDark
-                                      ? AppColors.darkOnSurface.withOpacity(0.6)
-                                      : AppColors.lightOnSurface.withOpacity(
+                                      ? AppColors.darkOnSurface.withValues(alpha: 0.6)
+                                      : AppColors.lightOnSurface.withValues(alpha: 
                                           0.6,
                                         )),
                             size: 22,
@@ -233,8 +233,8 @@ class _EnhancedIOSSearchBarState extends State<EnhancedIOSSearchBar>
                             hintText: widget.hintText,
                             hintStyle: theme.textTheme.bodyLarge?.copyWith(
                               color: isDark
-                                  ? AppColors.darkOnSurface.withOpacity(0.5)
-                                  : AppColors.lightOnSurface.withOpacity(0.5),
+                                  ? AppColors.darkOnSurface.withValues(alpha: 0.5)
+                                  : AppColors.lightOnSurface.withValues(alpha: 0.5),
                               fontWeight: FontWeight.w400,
                             ),
                             border: InputBorder.none,
@@ -263,14 +263,14 @@ class _EnhancedIOSSearchBarState extends State<EnhancedIOSSearchBar>
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 color: isDark
-                                    ? AppColors.darkOnSurface.withOpacity(0.1)
-                                    : AppColors.lightOnSurface.withOpacity(0.1),
+                                    ? AppColors.darkOnSurface.withValues(alpha: 0.1)
+                                    : AppColors.lightOnSurface.withValues(alpha: 0.1),
                               ),
                               child: Icon(
                                 Icons.close_rounded,
                                 color: isDark
-                                    ? AppColors.darkOnSurface.withOpacity(0.7)
-                                    : AppColors.lightOnSurface.withOpacity(0.7),
+                                    ? AppColors.darkOnSurface.withValues(alpha: 0.7)
+                                    : AppColors.lightOnSurface.withValues(alpha: 0.7),
                                 size: 16,
                               ),
                             ),

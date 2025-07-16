@@ -127,7 +127,7 @@ class _EnhancedPopularSectionState extends State<EnhancedPopularSection>
                         borderRadius: BorderRadius.circular(12),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.orange.withOpacity(0.4),
+                            color: Colors.orange.withValues(alpha: 0.4),
                             blurRadius: 8,
                             offset: const Offset(0, 4),
                           ),
@@ -186,7 +186,7 @@ class _EnhancedPopularSectionState extends State<EnhancedPopularSection>
                             (isDark
                                     ? AppColors.darkOnSurface
                                     : AppColors.lightOnSurface)
-                                .withOpacity(0.7),
+                                .withValues(alpha: 0.7),
                       ),
                     ),
                   ],
@@ -263,14 +263,14 @@ class _EnhancedPopularSectionState extends State<EnhancedPopularSection>
                       ? LinearGradient(
                           colors: [
                             theme.colorScheme.secondary,
-                            theme.colorScheme.secondary.withOpacity(0.7),
+                            theme.colorScheme.secondary.withValues(alpha: 0.7),
                           ],
                         )
                       : null,
                   color: _currentPage != index
                       ? (isDark
-                            ? AppColors.darkOnSurface.withOpacity(0.3)
-                            : AppColors.lightOnSurface.withOpacity(0.3))
+                            ? AppColors.darkOnSurface.withValues(alpha: 0.3)
+                            : AppColors.lightOnSurface.withValues(alpha: 0.3))
                       : null,
                 ),
               ),
@@ -365,7 +365,7 @@ class _EnhancedPopularSectionState extends State<EnhancedPopularSection>
             style: theme.textTheme.bodySmall?.copyWith(
               color:
                   (isDark ? AppColors.darkOnSurface : AppColors.lightOnSurface)
-                      .withOpacity(0.7),
+                      .withValues(alpha: 0.7),
             ),
           ),
         ],

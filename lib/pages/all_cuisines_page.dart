@@ -300,7 +300,7 @@ class _AllCuisinesPageState extends State<AllCuisinesPage>
                         Text(
                           'Discover authentic recipes from ${filteredCuisines.length} different cuisines around the world',
                           style: theme.textTheme.bodyLarge?.copyWith(
-                            color: theme.colorScheme.onSurface.withOpacity(0.7),
+                            color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
                             height: 1.4,
                           ),
                         ),
@@ -327,7 +327,7 @@ class _AllCuisinesPageState extends State<AllCuisinesPage>
                             decoration: InputDecoration(
                               hintText: 'Search cuisines...',
                               hintStyle: theme.textTheme.bodyMedium?.copyWith(
-                                color: theme.colorScheme.onSurface.withOpacity(
+                                color: theme.colorScheme.onSurface.withValues(alpha: 
                                   0.5,
                                 ),
                               ),
@@ -340,7 +340,7 @@ class _AllCuisinesPageState extends State<AllCuisinesPage>
                                       icon: Icon(
                                         Icons.clear_rounded,
                                         color: theme.colorScheme.onSurface
-                                            .withOpacity(0.5),
+                                            .withValues(alpha: 0.5),
                                       ),
                                       onPressed: () {
                                         _searchController.clear();
@@ -376,7 +376,7 @@ class _AllCuisinesPageState extends State<AllCuisinesPage>
                       child: Text(
                         '${filteredCuisines.length} cuisines found',
                         style: theme.textTheme.bodySmall?.copyWith(
-                          color: theme.colorScheme.onSurface.withOpacity(0.6),
+                          color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
                         ),
                       ),
                     ),

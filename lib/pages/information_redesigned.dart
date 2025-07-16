@@ -11,11 +11,11 @@ import '../components/buttons/animated_favorite_button.dart';
 import '../model/favorites_database.dart';
 import 'package:provider/provider.dart';
 
-class Information extends StatefulWidget {
+class InformationRedesigned extends StatefulWidget {
   final String name;
   final int id;
   final String image;
-  const Information({
+  const InformationRedesigned({
     super.key,
     required this.name,
     required this.id,
@@ -23,10 +23,10 @@ class Information extends StatefulWidget {
   });
 
   @override
-  State<Information> createState() => _InformationState();
+  State<InformationRedesigned> createState() => _InformationRedesignedState();
 }
 
-class _InformationState extends State<Information>
+class _InformationRedesignedState extends State<InformationRedesigned>
     with SingleTickerProviderStateMixin {
   Map<String, dynamic>? data;
   late Future<Map<String, dynamic>> recipes;
@@ -138,7 +138,7 @@ class _InformationState extends State<Information>
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: theme.colorScheme.secondary.withOpacity(0.1),
+                color: theme.colorScheme.secondary.withValues(alpha: 0.1),
               ),
               child: CircularProgressIndicator(
                 color: theme.colorScheme.secondary,
@@ -149,7 +149,7 @@ class _InformationState extends State<Information>
             Text(
               'Loading recipe details...',
               style: theme.textTheme.bodyLarge?.copyWith(
-                color: theme.colorScheme.onSurface.withOpacity(0.7),
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
               ),
             ),
           ],
@@ -180,7 +180,7 @@ class _InformationState extends State<Information>
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: theme.colorScheme.error.withOpacity(0.1),
+                  color: theme.colorScheme.error.withValues(alpha: 0.1),
                 ),
                 child: Icon(
                   Icons.error_outline_rounded,
@@ -199,7 +199,7 @@ class _InformationState extends State<Information>
               Text(
                 'We couldn\'t load this recipe. Please try again.',
                 style: theme.textTheme.bodyMedium?.copyWith(
-                  color: theme.colorScheme.onSurface.withOpacity(0.7),
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -236,7 +236,7 @@ class _InformationState extends State<Information>
               leading: Container(
                 margin: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
-                  color: Colors.black.withOpacity(0.3),
+                  color: Colors.black.withValues(alpha: 0.3),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: IconButton(
@@ -252,7 +252,7 @@ class _InformationState extends State<Information>
                 Container(
                   margin: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
-                    color: Colors.black.withOpacity(0.3),
+                    color: Colors.black.withValues(alpha: 0.3),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: AnimatedFavoriteButton(
@@ -296,8 +296,8 @@ class _InformationState extends State<Information>
                             child: Icon(
                               Icons.restaurant_rounded,
                               size: 64,
-                              color: theme.colorScheme.onSurface.withOpacity(
-                                0.3,
+                              color: theme.colorScheme.onSurface.withValues(
+                                alpha: 0.3,
                               ),
                             ),
                           );
@@ -312,8 +312,8 @@ class _InformationState extends State<Information>
                           end: Alignment.bottomCenter,
                           colors: [
                             Colors.transparent,
-                            Colors.black.withOpacity(0.3),
-                            Colors.black.withOpacity(0.8),
+                            Colors.black.withValues(alpha: 0.3),
+                            Colors.black.withValues(alpha: 0.8),
                           ],
                           stops: const [0.0, 0.6, 1.0],
                         ),
@@ -338,7 +338,7 @@ class _InformationState extends State<Information>
                                   Shadow(
                                     offset: const Offset(0, 2),
                                     blurRadius: 4,
-                                    color: Colors.black.withOpacity(0.5),
+                                    color: Colors.black.withValues(alpha: 0.5),
                                   ),
                                 ],
                               ),
@@ -421,9 +421,12 @@ class _InformationState extends State<Information>
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.2),
+        color: Colors.white.withValues(alpha: 0.2),
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: Colors.white.withOpacity(0.3), width: 0.5),
+        border: Border.all(
+          color: Colors.white.withValues(alpha: 0.3),
+          width: 0.5,
+        ),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -481,10 +484,14 @@ class _InformationState extends State<Information>
             margin: const EdgeInsets.only(bottom: 12),
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.secondary.withOpacity(0.05),
+              color: Theme.of(
+                context,
+              ).colorScheme.secondary.withValues(alpha: 0.05),
               borderRadius: BorderRadius.circular(12),
               border: Border.all(
-                color: Theme.of(context).colorScheme.secondary.withOpacity(0.1),
+                color: Theme.of(
+                  context,
+                ).colorScheme.secondary.withValues(alpha: 0.1),
                 width: 0.5,
               ),
             ),
@@ -498,7 +505,7 @@ class _InformationState extends State<Information>
                     borderRadius: BorderRadius.circular(8),
                     color: Theme.of(
                       context,
-                    ).colorScheme.secondary.withOpacity(0.1),
+                    ).colorScheme.secondary.withValues(alpha: 0.1),
                   ),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(8),
@@ -539,7 +546,7 @@ class _InformationState extends State<Information>
                               ?.copyWith(
                                 color: Theme.of(
                                   context,
-                                ).colorScheme.onSurface.withOpacity(0.7),
+                                ).colorScheme.onSurface.withValues(alpha: 0.7),
                               ),
                         ),
                       ],
@@ -588,7 +595,7 @@ class _InformationState extends State<Information>
                         Theme.of(context).colorScheme.secondary,
                         Theme.of(
                           context,
-                        ).colorScheme.secondary.withOpacity(0.8),
+                        ).colorScheme.secondary.withValues(alpha: 0.8),
                       ],
                     ),
                     borderRadius: BorderRadius.circular(16),
@@ -702,9 +709,9 @@ class _InformationState extends State<Information>
       margin: const EdgeInsets.symmetric(horizontal: 4),
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.1),
+        color: color.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: color.withOpacity(0.2), width: 0.5),
+        border: Border.all(color: color.withValues(alpha: 0.2), width: 0.5),
       ),
       child: Column(
         children: [
@@ -727,7 +734,7 @@ class _InformationState extends State<Information>
           Text(
             unit,
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
-              color: color.withOpacity(0.7),
+              color: color.withValues(alpha: 0.7),
               fontSize: 10,
             ),
           ),

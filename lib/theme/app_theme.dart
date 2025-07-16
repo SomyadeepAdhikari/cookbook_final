@@ -16,7 +16,6 @@ class AppTheme {
         primary: AppColors.lightPrimary,
         secondary: AppColors.lightSecondary,
         tertiary: AppColors.lightAccent,
-        background: AppColors.lightBackground,
         surface: AppColors.lightSurface,
         onPrimary: AppColors.lightOnPrimary,
         onSecondary: Colors.white,
@@ -28,7 +27,7 @@ class AppTheme {
 
       // App bar theme
       appBarTheme: AppBarTheme(
-        backgroundColor: AppColors.lightSurface.withOpacity(0.9),
+        backgroundColor: AppColors.lightSurface.withValues(alpha: 0.9),
         elevation: 0,
         toolbarHeight: 90,
         centerTitle: true,
@@ -48,9 +47,9 @@ class AppTheme {
 
       // Bottom navigation bar theme
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
-        backgroundColor: AppColors.lightSurface.withOpacity(0.95),
+        backgroundColor: AppColors.lightSurface.withValues(alpha: 0.95),
         selectedItemColor: AppColors.lightSecondary,
-        unselectedItemColor: AppColors.lightOnSurface.withOpacity(0.6),
+        unselectedItemColor: AppColors.lightOnSurface.withValues(alpha: 0.6),
         type: BottomNavigationBarType.fixed,
         elevation: 0,
         selectedLabelStyle: AppTypography.labelSmall.copyWith(
@@ -128,7 +127,7 @@ class AppTheme {
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
           borderSide: BorderSide(
-            color: AppColors.lightOnSurface.withOpacity(0.1),
+            color: AppColors.lightOnSurface.withValues(alpha: 0.1),
             width: 1,
           ),
         ),
@@ -144,7 +143,7 @@ class AppTheme {
           vertical: 16,
         ),
         hintStyle: AppTypography.bodyMedium.copyWith(
-          color: AppColors.lightOnSurface.withOpacity(0.6),
+          color: AppColors.lightOnSurface.withValues(alpha: 0.6),
         ),
       ),
 
@@ -154,7 +153,7 @@ class AppTheme {
           backgroundColor: AppColors.lightSecondary,
           foregroundColor: Colors.white,
           elevation: 8,
-          shadowColor: AppColors.lightSecondary.withOpacity(0.3),
+          shadowColor: AppColors.lightSecondary.withValues(alpha: 0.3),
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
@@ -167,7 +166,7 @@ class AppTheme {
       chipTheme: ChipThemeData(
         backgroundColor: AppColors.lightSurface,
         selectedColor: AppColors.lightSecondary,
-        disabledColor: AppColors.lightOnSurface.withOpacity(0.1),
+        disabledColor: AppColors.lightOnSurface.withValues(alpha: 0.1),
         labelStyle: AppTypography.chipText.copyWith(
           color: AppColors.lightOnSurface,
         ),
@@ -189,7 +188,6 @@ class AppTheme {
         primary: AppColors.darkPrimary,
         secondary: AppColors.darkSecondary,
         tertiary: AppColors.darkAccent,
-        background: AppColors.darkBackground,
         surface: AppColors.darkSurface,
         onPrimary: AppColors.darkOnPrimary,
         onSecondary: Colors.black,
@@ -201,7 +199,7 @@ class AppTheme {
 
       // App bar theme
       appBarTheme: AppBarTheme(
-        backgroundColor: AppColors.darkSurface.withOpacity(0.9),
+        backgroundColor: AppColors.darkSurface.withValues(alpha: 0.9),
         elevation: 0,
         toolbarHeight: 90,
         centerTitle: true,
@@ -221,9 +219,9 @@ class AppTheme {
 
       // Bottom navigation bar theme
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
-        backgroundColor: AppColors.darkSurface.withOpacity(0.95),
+        backgroundColor: AppColors.darkSurface.withValues(alpha: 0.95),
         selectedItemColor: AppColors.darkSecondary,
-        unselectedItemColor: AppColors.darkOnSurface.withOpacity(0.6),
+        unselectedItemColor: AppColors.darkOnSurface.withValues(alpha: 0.6),
         type: BottomNavigationBarType.fixed,
         elevation: 0,
         selectedLabelStyle: AppTypography.labelSmall.copyWith(
@@ -301,7 +299,7 @@ class AppTheme {
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
           borderSide: BorderSide(
-            color: AppColors.darkOnSurface.withOpacity(0.1),
+            color: AppColors.darkOnSurface.withValues(alpha: 0.1),
             width: 1,
           ),
         ),
@@ -317,7 +315,7 @@ class AppTheme {
           vertical: 16,
         ),
         hintStyle: AppTypography.bodyMedium.copyWith(
-          color: AppColors.darkOnSurface.withOpacity(0.6),
+          color: AppColors.darkOnSurface.withValues(alpha: 0.6),
         ),
       ),
 
@@ -327,7 +325,7 @@ class AppTheme {
           backgroundColor: AppColors.darkSecondary,
           foregroundColor: Colors.black,
           elevation: 8,
-          shadowColor: AppColors.darkSecondary.withOpacity(0.3),
+          shadowColor: AppColors.darkSecondary.withValues(alpha: 0.3),
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
@@ -340,7 +338,7 @@ class AppTheme {
       chipTheme: ChipThemeData(
         backgroundColor: AppColors.darkSurface,
         selectedColor: AppColors.darkSecondary,
-        disabledColor: AppColors.darkOnSurface.withOpacity(0.1),
+        disabledColor: AppColors.darkOnSurface.withValues(alpha: 0.1),
         labelStyle: AppTypography.chipText.copyWith(
           color: AppColors.darkOnSurface,
         ),

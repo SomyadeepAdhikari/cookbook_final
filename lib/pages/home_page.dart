@@ -51,7 +51,7 @@ class _HomePageState extends State<HomePage> {
               margin: const EdgeInsets.only(right: 8),
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: colorScheme.surface.withOpacity(0.8),
+                color: colorScheme.surface.withValues(alpha: 0.8),
               ),
               child: IconButton(
                 icon: Icon(

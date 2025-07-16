@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:cookbook_final/pages/information.dart';
+import 'package:cookbook_final/pages/information_redesigned.dart';
 import 'package:cookbook_final/model/favorites_database.dart';
 import 'package:provider/provider.dart';
 import '../../theme/colors.dart';
@@ -75,7 +75,7 @@ class _FeaturedRecipeCardState extends State<FeaturedRecipeCard>
     } else {
       Navigator.of(context).push(
         PageRouteBuilder(
-          pageBuilder: (context, animation, secondaryAnimation) => Information(
+          pageBuilder: (context, animation, secondaryAnimation) => InformationRedesigned(
             name: widget.title,
             id: widget.id,
             image: widget.image,
@@ -160,8 +160,8 @@ class _FeaturedRecipeCardState extends State<FeaturedRecipeCard>
                                   Icons.restaurant,
                                   size: 48,
                                   color: isDark
-                                      ? AppColors.darkOnSurface.withOpacity(0.5)
-                                      : AppColors.lightOnSurface.withOpacity(
+                                      ? AppColors.darkOnSurface.withValues(alpha: 0.5)
+                                      : AppColors.lightOnSurface.withValues(alpha: 
                                           0.5,
                                         ),
                                 ),
@@ -180,8 +180,8 @@ class _FeaturedRecipeCardState extends State<FeaturedRecipeCard>
                               end: Alignment.bottomCenter,
                               colors: [
                                 Colors.transparent,
-                                Colors.black.withOpacity(0.3),
-                                Colors.black.withOpacity(0.8),
+                                Colors.black.withValues(alpha: 0.3),
+                                Colors.black.withValues(alpha: 0.8),
                               ],
                               stops: const [0.0, 0.6, 1.0],
                             ),
@@ -208,7 +208,7 @@ class _FeaturedRecipeCardState extends State<FeaturedRecipeCard>
                                   Shadow(
                                     offset: const Offset(0, 2),
                                     blurRadius: 4,
-                                    color: Colors.black.withOpacity(0.5),
+                                    color: Colors.black.withValues(alpha: 0.5),
                                   ),
                                 ],
                               ),
@@ -221,12 +221,12 @@ class _FeaturedRecipeCardState extends State<FeaturedRecipeCard>
                               Text(
                                 widget.description!,
                                 style: theme.textTheme.bodySmall?.copyWith(
-                                  color: Colors.white.withOpacity(0.9),
+                                  color: Colors.white.withValues(alpha: 0.9),
                                   shadows: [
                                     Shadow(
                                       offset: const Offset(0, 1),
                                       blurRadius: 2,
-                                      color: Colors.black.withOpacity(0.5),
+                                      color: Colors.black.withValues(alpha: 0.5),
                                     ),
                                   ],
                                 ),
@@ -268,7 +268,7 @@ class _FeaturedRecipeCardState extends State<FeaturedRecipeCard>
                                 Container(
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
-                                    color: Colors.white.withOpacity(0.2),
+                                    color: Colors.white.withValues(alpha: 0.2),
                                   ),
                                   child: AnimatedFavoriteButton(
                                     isFavorite: _isFavorite,
@@ -319,7 +319,7 @@ class _FeaturedRecipeCardState extends State<FeaturedRecipeCard>
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.2),
+        color: Colors.white.withValues(alpha: 0.2),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Row(
@@ -328,13 +328,13 @@ class _FeaturedRecipeCardState extends State<FeaturedRecipeCard>
           Icon(
             icon,
             size: 14,
-            color: iconColor ?? Colors.white.withOpacity(0.9),
+            color: iconColor ?? Colors.white.withValues(alpha: 0.9),
           ),
           const SizedBox(width: 4),
           Text(
             text,
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
-              color: Colors.white.withOpacity(0.9),
+              color: Colors.white.withValues(alpha: 0.9),
               fontSize: 11,
               fontWeight: FontWeight.w500,
             ),

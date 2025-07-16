@@ -112,8 +112,8 @@ class _ModernBottomNavState extends State<ModernBottomNav>
             height: 90,
             decoration: BoxDecoration(
               color: isDark
-                  ? AppColors.darkSurface.withOpacity(0.9)
-                  : AppColors.lightSurface.withOpacity(0.9),
+                  ? AppColors.darkSurface.withValues(alpha: 0.9)
+                  : AppColors.lightSurface.withValues(alpha: 0.9),
               borderRadius: BorderRadius.circular(30),
               border: Border.all(
                 color: isDark
@@ -125,8 +125,8 @@ class _ModernBottomNavState extends State<ModernBottomNav>
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 colors: [
-                  Colors.white.withOpacity(isDark ? 0.1 : 0.2),
-                  Colors.white.withOpacity(isDark ? 0.05 : 0.1),
+                  Colors.white.withValues(alpha: isDark ? 0.1 : 0.2),
+                  Colors.white.withValues(alpha: isDark ? 0.05 : 0.1),
                 ],
               ),
             ),
@@ -166,7 +166,7 @@ class _ModernBottomNavState extends State<ModernBottomNav>
                                       shape: BoxShape.circle,
                                       color: isSelected
                                           ? theme.colorScheme.secondary
-                                                .withOpacity(0.2)
+                                                .withValues(alpha: 0.2)
                                           : Colors.transparent,
                                     ),
                                     child: Icon(
@@ -176,9 +176,9 @@ class _ModernBottomNavState extends State<ModernBottomNav>
                                           ? theme.colorScheme.secondary
                                           : (isDark
                                                 ? AppColors.darkOnSurface
-                                                      .withOpacity(0.6)
+                                                      .withValues(alpha: 0.6)
                                                 : AppColors.lightOnSurface
-                                                      .withOpacity(0.6)),
+                                                      .withValues(alpha: 0.6)),
                                     ),
                                   ),
 
@@ -194,9 +194,9 @@ class _ModernBottomNavState extends State<ModernBottomNav>
                                                 ? theme.colorScheme.secondary
                                                 : (isDark
                                                       ? AppColors.darkOnSurface
-                                                            .withOpacity(0.6)
+                                                            .withValues(alpha: 0.6)
                                                       : AppColors.lightOnSurface
-                                                            .withOpacity(0.6)),
+                                                            .withValues(alpha: 0.6)),
                                             fontWeight: isSelected
                                                 ? FontWeight.w600
                                                 : FontWeight.w400,

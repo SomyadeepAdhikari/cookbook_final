@@ -53,8 +53,8 @@ class GlassmorphicAppBar extends StatelessWidget
               color:
                   backgroundColor ??
                   (isDark
-                      ? AppColors.darkSurface.withOpacity(0.9)
-                      : AppColors.lightSurface.withOpacity(0.9)),
+                      ? AppColors.darkSurface.withValues(alpha: 0.9)
+                      : AppColors.lightSurface.withValues(alpha: 0.9)),
               borderRadius: const BorderRadius.vertical(
                 bottom: Radius.circular(20),
               ),
@@ -70,8 +70,8 @@ class GlassmorphicAppBar extends StatelessWidget
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 colors: [
-                  Colors.white.withOpacity(isDark ? 0.1 : 0.2),
-                  Colors.white.withOpacity(isDark ? 0.05 : 0.1),
+                  Colors.white.withValues(alpha: isDark ? 0.1 : 0.2),
+                  Colors.white.withValues(alpha: isDark ? 0.05 : 0.1),
                 ],
               ),
               boxShadow: elevation > 0
@@ -137,8 +137,8 @@ class GlassmorphicAppBar extends StatelessWidget
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
                 color: isDark
-                    ? AppColors.darkSurface.withOpacity(0.5)
-                    : AppColors.lightSurface.withOpacity(0.8),
+                    ? AppColors.darkSurface.withValues(alpha: 0.5)
+                    : AppColors.lightSurface.withValues(alpha: 0.8),
                 border: Border.all(
                   color: isDark
                       ? AppColors.darkGlassStroke

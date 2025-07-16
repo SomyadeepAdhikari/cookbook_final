@@ -115,7 +115,7 @@ class _IOSSearchBarState extends State<IOSSearchBar>
               boxShadow: [
                 if (_isFocused)
                   BoxShadow(
-                    color: theme.colorScheme.secondary.withOpacity(
+                    color: theme.colorScheme.secondary.withValues(alpha: 
                       0.3 * _glowAnimation.value,
                     ),
                     blurRadius: 20 * _glowAnimation.value,
@@ -123,7 +123,7 @@ class _IOSSearchBarState extends State<IOSSearchBar>
                   ),
                 BoxShadow(
                   color: (isDark ? Colors.black : Colors.grey.shade300)
-                      .withOpacity(0.2),
+                      .withValues(alpha: 0.2),
                   blurRadius: 12,
                   offset: const Offset(0, 4),
                 ),
@@ -140,17 +140,17 @@ class _IOSSearchBarState extends State<IOSSearchBar>
                       end: Alignment.bottomRight,
                       colors: isDark
                           ? [
-                              AppColors.darkGlass.withOpacity(0.9),
-                              AppColors.darkGlass.withOpacity(0.7),
+                              AppColors.darkGlass.withValues(alpha: 0.9),
+                              AppColors.darkGlass.withValues(alpha: 0.7),
                             ]
                           : [
-                              AppColors.lightGlass.withOpacity(0.9),
-                              AppColors.lightGlass.withOpacity(0.7),
+                              AppColors.lightGlass.withValues(alpha: 0.9),
+                              AppColors.lightGlass.withValues(alpha: 0.7),
                             ],
                     ),
                     border: Border.all(
                       color: _isFocused
-                          ? theme.colorScheme.secondary.withOpacity(0.6)
+                          ? theme.colorScheme.secondary.withValues(alpha: 0.6)
                           : (isDark
                                 ? AppColors.darkGlassStroke
                                 : AppColors.lightGlassStroke),
@@ -175,8 +175,8 @@ class _IOSSearchBarState extends State<IOSSearchBar>
                             color: _isFocused
                                 ? theme.colorScheme.secondary
                                 : (isDark
-                                      ? AppColors.darkOnSurface.withOpacity(0.6)
-                                      : AppColors.lightOnSurface.withOpacity(
+                                      ? AppColors.darkOnSurface.withValues(alpha: 0.6)
+                                      : AppColors.lightOnSurface.withValues(alpha: 
                                           0.6,
                                         )),
                           ),
@@ -203,7 +203,7 @@ class _IOSSearchBarState extends State<IOSSearchBar>
                                     (isDark
                                             ? AppColors.darkOnSurface
                                             : AppColors.lightOnSurface)
-                                        .withOpacity(0.5),
+                                        .withValues(alpha: 0.5),
                                 fontWeight: FontWeight.w400,
                               ),
                               border: InputBorder.none,
@@ -228,7 +228,7 @@ class _IOSSearchBarState extends State<IOSSearchBar>
                                     (isDark
                                             ? AppColors.darkOnSurface
                                             : AppColors.lightOnSurface)
-                                        .withOpacity(0.2),
+                                        .withValues(alpha: 0.2),
                               ),
                               child: Icon(
                                 Icons.close_rounded,

@@ -80,7 +80,7 @@ class _InstructionCardState extends State<InstructionCard>
               boxShadow: [
                 BoxShadow(
                   color: (isDark ? Colors.black : Colors.grey.shade300)
-                      .withOpacity(0.3 * _shadowAnimation.value),
+                      .withValues(alpha: 0.3 * _shadowAnimation.value),
                   blurRadius: 20 * _shadowAnimation.value,
                   offset: Offset(0, 8 * _shadowAnimation.value),
                 ),
@@ -101,22 +101,22 @@ class _InstructionCardState extends State<InstructionCard>
                         end: Alignment.bottomRight,
                         colors: widget.isCompleted
                             ? [
-                                AppColors.success.withOpacity(0.1),
-                                AppColors.success.withOpacity(0.05),
+                                AppColors.success.withValues(alpha: 0.1),
+                                AppColors.success.withValues(alpha: 0.05),
                               ]
                             : isDark
                             ? [
-                                AppColors.darkGlass.withOpacity(0.9),
-                                AppColors.darkGlass.withOpacity(0.7),
+                                AppColors.darkGlass.withValues(alpha: 0.9),
+                                AppColors.darkGlass.withValues(alpha: 0.7),
                               ]
                             : [
-                                AppColors.lightGlass.withOpacity(0.9),
-                                AppColors.lightGlass.withOpacity(0.7),
+                                AppColors.lightGlass.withValues(alpha: 0.9),
+                                AppColors.lightGlass.withValues(alpha: 0.7),
                               ],
                       ),
                       border: Border.all(
                         color: widget.isCompleted
-                            ? AppColors.success.withOpacity(0.4)
+                            ? AppColors.success.withValues(alpha: 0.4)
                             : isDark
                             ? AppColors.darkGlassStroke
                             : AppColors.lightGlassStroke,
@@ -139,11 +139,11 @@ class _InstructionCardState extends State<InstructionCard>
                                 colors: widget.isCompleted
                                     ? [
                                         AppColors.success,
-                                        AppColors.success.withOpacity(0.8),
+                                        AppColors.success.withValues(alpha: 0.8),
                                       ]
                                     : [
                                         theme.colorScheme.secondary,
-                                        theme.colorScheme.secondary.withOpacity(
+                                        theme.colorScheme.secondary.withValues(alpha: 
                                           0.8,
                                         ),
                                       ],
@@ -154,7 +154,7 @@ class _InstructionCardState extends State<InstructionCard>
                                       (widget.isCompleted
                                               ? AppColors.success
                                               : theme.colorScheme.secondary)
-                                          .withOpacity(0.3),
+                                          .withValues(alpha: 0.3),
                                   blurRadius: 12,
                                   offset: const Offset(0, 4),
                                 ),
@@ -220,7 +220,7 @@ class _InstructionCardState extends State<InstructionCard>
                                 border: Border.all(
                                   color: widget.isCompleted
                                       ? AppColors.success
-                                      : theme.colorScheme.secondary.withOpacity(
+                                      : theme.colorScheme.secondary.withValues(alpha: 
                                           0.5,
                                         ),
                                   width: 2,

@@ -73,13 +73,13 @@ class _SkeletonLoadingState extends State<SkeletonLoading>
     final baseColor =
         widget.baseColor ??
         (isDark
-            ? AppColors.darkGlass.withOpacity(0.3)
-            : AppColors.lightGlass.withOpacity(0.3));
+            ? AppColors.darkGlass.withValues(alpha: 0.3)
+            : AppColors.lightGlass.withValues(alpha: 0.3));
     final highlightColor =
         widget.highlightColor ??
         (isDark
-            ? AppColors.darkGlass.withOpacity(0.5)
-            : AppColors.lightGlass.withOpacity(0.5));
+            ? AppColors.darkGlass.withValues(alpha: 0.5)
+            : AppColors.lightGlass.withValues(alpha: 0.5));
 
     if (!widget.isLoading) {
       return widget.child;
@@ -123,12 +123,12 @@ class SkeletonRecipeCard extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(24),
         color: isDark
-            ? AppColors.darkGlass.withOpacity(0.1)
-            : AppColors.lightGlass.withOpacity(0.1),
+            ? AppColors.darkGlass.withValues(alpha: 0.1)
+            : AppColors.lightGlass.withValues(alpha: 0.1),
         border: Border.all(
           color: isDark
-              ? AppColors.darkGlassStroke.withOpacity(0.3)
-              : AppColors.lightGlassStroke.withOpacity(0.3),
+              ? AppColors.darkGlassStroke.withValues(alpha: 0.3)
+              : AppColors.lightGlassStroke.withValues(alpha: 0.3),
           width: 0.5,
         ),
         // Remove shadows from skeleton for cleaner look
@@ -150,8 +150,8 @@ class SkeletonRecipeCard extends StatelessWidget {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
                     color: isDark
-                        ? AppColors.darkGlass.withOpacity(0.3)
-                        : AppColors.lightGlass.withOpacity(0.3),
+                        ? AppColors.darkGlass.withValues(alpha: 0.3)
+                        : AppColors.lightGlass.withValues(alpha: 0.3),
                   ),
                 ),
 
@@ -170,8 +170,8 @@ class SkeletonRecipeCard extends StatelessWidget {
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(9),
                               color: isDark
-                                  ? AppColors.darkGlass.withOpacity(0.4)
-                                  : AppColors.lightGlass.withOpacity(0.4),
+                                  ? AppColors.darkGlass.withValues(alpha: 0.4)
+                                  : AppColors.lightGlass.withValues(alpha: 0.4),
                             ),
                           ),
                           const SizedBox(height: 8),
@@ -181,8 +181,8 @@ class SkeletonRecipeCard extends StatelessWidget {
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(9),
                               color: isDark
-                                  ? AppColors.darkGlass.withOpacity(0.3)
-                                  : AppColors.lightGlass.withOpacity(0.3),
+                                  ? AppColors.darkGlass.withValues(alpha: 0.3)
+                                  : AppColors.lightGlass.withValues(alpha: 0.3),
                             ),
                           ),
                         ],
@@ -199,8 +199,8 @@ class SkeletonRecipeCard extends StatelessWidget {
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(7),
                               color: isDark
-                                  ? AppColors.darkGlass.withOpacity(0.2)
-                                  : AppColors.lightGlass.withOpacity(0.2),
+                                  ? AppColors.darkGlass.withValues(alpha: 0.2)
+                                  : AppColors.lightGlass.withValues(alpha: 0.2),
                             ),
                           ),
                           const SizedBox(height: 6),
@@ -210,8 +210,8 @@ class SkeletonRecipeCard extends StatelessWidget {
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(7),
                               color: isDark
-                                  ? AppColors.darkGlass.withOpacity(0.2)
-                                  : AppColors.lightGlass.withOpacity(0.2),
+                                  ? AppColors.darkGlass.withValues(alpha: 0.2)
+                                  : AppColors.lightGlass.withValues(alpha: 0.2),
                             ),
                           ),
                         ],
@@ -228,8 +228,8 @@ class SkeletonRecipeCard extends StatelessWidget {
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(12),
                               color: isDark
-                                  ? AppColors.darkGlass.withOpacity(0.3)
-                                  : AppColors.lightGlass.withOpacity(0.3),
+                                  ? AppColors.darkGlass.withValues(alpha: 0.3)
+                                  : AppColors.lightGlass.withValues(alpha: 0.3),
                             ),
                           ),
                           const SizedBox(width: 12),
@@ -239,8 +239,8 @@ class SkeletonRecipeCard extends StatelessWidget {
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(12),
                               color: isDark
-                                  ? AppColors.darkGlass.withOpacity(0.3)
-                                  : AppColors.lightGlass.withOpacity(0.3),
+                                  ? AppColors.darkGlass.withValues(alpha: 0.3)
+                                  : AppColors.lightGlass.withValues(alpha: 0.3),
                             ),
                           ),
                         ],

@@ -234,7 +234,7 @@ class _FeaturedRecipesPageState extends State<FeaturedRecipesPage>
             Text(
               'Please check your connection and try again',
               style: theme.textTheme.bodyMedium?.copyWith(
-                color: theme.colorScheme.onSurface.withOpacity(0.7),
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
               ),
               textAlign: TextAlign.center,
             ),
@@ -278,7 +278,7 @@ class _FeaturedRecipesPageState extends State<FeaturedRecipesPage>
                 Text(
                   'Discover ${_allRecipes.length}+ carefully curated recipes by our culinary experts',
                   style: theme.textTheme.bodyLarge?.copyWith(
-                    color: theme.colorScheme.onSurface.withOpacity(0.7),
+                    color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
                     height: 1.4,
                   ),
                 ),

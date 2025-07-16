@@ -129,12 +129,12 @@ class _GlassmorphicSearchBarState extends State<GlassmorphicSearchBar>
             duration: AppAnimations.searchAnimation,
             decoration: BoxDecoration(
               color: isDark
-                  ? AppColors.darkGlass.withOpacity(0.9)
-                  : AppColors.lightGlass.withOpacity(0.9),
+                  ? AppColors.darkGlass.withValues(alpha: 0.9)
+                  : AppColors.lightGlass.withValues(alpha: 0.9),
               borderRadius: BorderRadius.circular(25),
               border: Border.all(
                 color: _isFocused
-                    ? theme.colorScheme.secondary.withOpacity(0.5)
+                    ? theme.colorScheme.secondary.withValues(alpha: 0.5)
                     : (isDark
                           ? AppColors.darkGlassStroke
                           : AppColors.lightGlassStroke),
@@ -144,8 +144,8 @@ class _GlassmorphicSearchBarState extends State<GlassmorphicSearchBar>
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
                 colors: [
-                  Colors.white.withOpacity(isDark ? 0.1 : 0.3),
-                  Colors.white.withOpacity(isDark ? 0.05 : 0.1),
+                  Colors.white.withValues(alpha: isDark ? 0.1 : 0.3),
+                  Colors.white.withValues(alpha: isDark ? 0.05 : 0.1),
                 ],
               ),
             ),
@@ -167,7 +167,7 @@ class _GlassmorphicSearchBarState extends State<GlassmorphicSearchBar>
                         (isDark
                                 ? AppColors.darkOnSurface
                                 : AppColors.lightOnSurface)
-                            .withOpacity(0.6),
+                            .withValues(alpha: 0.6),
                   ),
                   border: InputBorder.none,
                   enabledBorder: InputBorder.none,
@@ -198,10 +198,10 @@ class _GlassmorphicSearchBarState extends State<GlassmorphicSearchBar>
                                   icon: Icon(
                                     Icons.clear,
                                     color: isDark
-                                        ? AppColors.darkOnSurface.withOpacity(
+                                        ? AppColors.darkOnSurface.withValues(alpha: 
                                             0.7,
                                           )
-                                        : AppColors.lightOnSurface.withOpacity(
+                                        : AppColors.lightOnSurface.withValues(alpha: 
                                             0.7,
                                           ),
                                     size: 20,

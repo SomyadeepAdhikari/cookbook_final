@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:cookbook_final/pages/information.dart';
+import 'package:cookbook_final/pages/information_redesigned.dart';
 import 'package:cookbook_final/model/favorites_database.dart';
 import 'package:provider/provider.dart';
 import '../../theme/colors.dart';
@@ -102,7 +102,7 @@ class _IOSRecipeListCardState extends State<IOSRecipeListCard>
     } else {
       Navigator.of(context).push(
         PageRouteBuilder(
-          pageBuilder: (context, animation, secondaryAnimation) => Information(
+          pageBuilder: (context, animation, secondaryAnimation) => InformationRedesigned(
             name: widget.title,
             id: widget.id,
             image: widget.image,
@@ -150,7 +150,7 @@ class _IOSRecipeListCardState extends State<IOSRecipeListCard>
                 boxShadow: isDark
                     ? [
                         BoxShadow(
-                          color: AppColors.darkShadow.withOpacity(
+                          color: AppColors.darkShadow.withValues(alpha: 
                             _shadowAnimation.value,
                           ),
                           blurRadius: 16 * _shadowAnimation.value,
@@ -160,7 +160,7 @@ class _IOSRecipeListCardState extends State<IOSRecipeListCard>
                     : [
                         // Very subtle shadow for light mode
                         BoxShadow(
-                          color: AppColors.lightShadow.withOpacity(
+                          color: AppColors.lightShadow.withValues(alpha: 
                             _shadowAnimation.value * 0.5,
                           ),
                           blurRadius: 8 * _shadowAnimation.value,
@@ -206,7 +206,7 @@ class _IOSRecipeListCardState extends State<IOSRecipeListCard>
                             boxShadow: isDark
                                 ? [
                                     BoxShadow(
-                                      color: Colors.black.withOpacity(0.3),
+                                      color: Colors.black.withValues(alpha: 0.3),
                                       blurRadius: 8,
                                       offset: const Offset(0, 4),
                                     ),
@@ -214,7 +214,7 @@ class _IOSRecipeListCardState extends State<IOSRecipeListCard>
                                 : [
                                     // Very subtle shadow for light mode
                                     BoxShadow(
-                                      color: Colors.grey.withOpacity(0.1),
+                                      color: Colors.grey.withValues(alpha: 0.1),
                                       blurRadius: 4,
                                       offset: const Offset(0, 2),
                                     ),
@@ -239,9 +239,9 @@ class _IOSRecipeListCardState extends State<IOSRecipeListCard>
                                         size: 40,
                                         color: isDark
                                             ? AppColors.darkOnSurface
-                                                  .withOpacity(0.5)
+                                                  .withValues(alpha: 0.5)
                                             : AppColors.lightOnSurface
-                                                  .withOpacity(0.5),
+                                                  .withValues(alpha: 0.5),
                                       ),
                                     );
                                   },
@@ -341,7 +341,7 @@ class _IOSRecipeListCardState extends State<IOSRecipeListCard>
                                         (isDark
                                                 ? AppColors.darkOnSurface
                                                 : AppColors.lightOnSurface)
-                                            .withOpacity(0.7),
+                                            .withValues(alpha: 0.7),
                                     fontSize: 14,
                                     height: 1.4,
                                   ),
@@ -389,12 +389,12 @@ class _IOSRecipeListCardState extends State<IOSRecipeListCard>
                                       decoration: BoxDecoration(
                                         color: _getHealthScoreColor(
                                           widget.healthScore!,
-                                        ).withOpacity(0.15),
+                                        ).withValues(alpha: 0.15),
                                         borderRadius: BorderRadius.circular(16),
                                         border: Border.all(
                                           color: _getHealthScoreColor(
                                             widget.healthScore!,
-                                          ).withOpacity(0.3),
+                                          ).withValues(alpha: 0.3),
                                           width: 1,
                                         ),
                                       ),
@@ -432,7 +432,7 @@ class _IOSRecipeListCardState extends State<IOSRecipeListCard>
       margin: const EdgeInsets.only(bottom: 4),
       padding: const EdgeInsets.all(4),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.9),
+        color: color.withValues(alpha: 0.9),
         borderRadius: BorderRadius.circular(8),
         // Remove shadows from badges for cleaner look
       ),
@@ -451,13 +451,13 @@ class _IOSRecipeListCardState extends State<IOSRecipeListCard>
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
         color: isDark
-            ? AppColors.darkGlass.withOpacity(0.3)
-            : AppColors.lightGlass.withOpacity(0.3),
+            ? AppColors.darkGlass.withValues(alpha: 0.3)
+            : AppColors.lightGlass.withValues(alpha: 0.3),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
           color: isDark
-              ? AppColors.darkGlassStroke.withOpacity(0.5)
-              : AppColors.lightGlassStroke.withOpacity(0.5),
+              ? AppColors.darkGlassStroke.withValues(alpha: 0.5)
+              : AppColors.lightGlassStroke.withValues(alpha: 0.5),
           width: 0.5,
         ),
       ),
@@ -470,8 +470,8 @@ class _IOSRecipeListCardState extends State<IOSRecipeListCard>
             text,
             style: theme.textTheme.bodySmall?.copyWith(
               color: isDark
-                  ? AppColors.darkOnSurface.withOpacity(0.9)
-                  : AppColors.lightOnSurface.withOpacity(0.9),
+                  ? AppColors.darkOnSurface.withValues(alpha: 0.9)
+                  : AppColors.lightOnSurface.withValues(alpha: 0.9),
               fontWeight: FontWeight.w600,
               fontSize: 11,
             ),

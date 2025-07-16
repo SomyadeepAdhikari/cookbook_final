@@ -97,18 +97,18 @@ class _ElegantLoadingTextState extends State<ElegantLoadingText>
               gradient: LinearGradient(
                 colors: isDark
                     ? [
-                        AppColors.darkGlass.withOpacity(0.3),
-                        AppColors.darkGlass.withOpacity(0.1),
+                        AppColors.darkGlass.withValues(alpha: 0.3),
+                        AppColors.darkGlass.withValues(alpha: 0.1),
                       ]
                     : [
-                        AppColors.lightGlass.withOpacity(0.3),
-                        AppColors.lightGlass.withOpacity(0.1),
+                        AppColors.lightGlass.withValues(alpha: 0.3),
+                        AppColors.lightGlass.withValues(alpha: 0.1),
                       ],
               ),
               border: Border.all(
                 color: isDark
-                    ? AppColors.darkGlassStroke.withOpacity(0.3)
-                    : AppColors.lightGlassStroke.withOpacity(0.3),
+                    ? AppColors.darkGlassStroke.withValues(alpha: 0.3)
+                    : AppColors.lightGlassStroke.withValues(alpha: 0.3),
                 width: 1,
               ),
             ),
@@ -121,8 +121,8 @@ class _ElegantLoadingTextState extends State<ElegantLoadingText>
                       widget.style ??
                       theme.textTheme.bodyLarge?.copyWith(
                         color: isDark
-                            ? AppColors.darkOnSurface.withOpacity(0.8)
-                            : AppColors.lightOnSurface.withOpacity(0.8),
+                            ? AppColors.darkOnSurface.withValues(alpha: 0.8)
+                            : AppColors.lightOnSurface.withValues(alpha: 0.8),
                         fontWeight: FontWeight.w500,
                         letterSpacing: 0.5,
                       ),
@@ -153,10 +153,10 @@ class _ElegantLoadingTextState extends State<ElegantLoadingText>
       height: 6,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        color: theme.colorScheme.secondary.withOpacity(opacity),
+        color: theme.colorScheme.secondary.withValues(alpha: opacity),
         boxShadow: [
           BoxShadow(
-            color: theme.colorScheme.secondary.withOpacity(opacity * 0.5),
+            color: theme.colorScheme.secondary.withValues(alpha: opacity * 0.5),
             blurRadius: 4,
             spreadRadius: 1,
           ),
@@ -189,12 +189,12 @@ class SimpleLoadingText extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
         color: isDark
-            ? AppColors.darkGlass.withOpacity(0.2)
-            : AppColors.lightGlass.withOpacity(0.2),
+            ? AppColors.darkGlass.withValues(alpha: 0.2)
+            : AppColors.lightGlass.withValues(alpha: 0.2),
         border: Border.all(
           color: isDark
-              ? AppColors.darkGlassStroke.withOpacity(0.3)
-              : AppColors.lightGlassStroke.withOpacity(0.3),
+              ? AppColors.darkGlassStroke.withValues(alpha: 0.3)
+              : AppColors.lightGlassStroke.withValues(alpha: 0.3),
           width: 0.5,
         ),
       ),
@@ -208,8 +208,8 @@ class SimpleLoadingText extends StatelessWidget {
                 style ??
                 theme.textTheme.bodyMedium?.copyWith(
                   color: isDark
-                      ? AppColors.darkOnSurface.withOpacity(0.7)
-                      : AppColors.lightOnSurface.withOpacity(0.7),
+                      ? AppColors.darkOnSurface.withValues(alpha: 0.7)
+                      : AppColors.lightOnSurface.withValues(alpha: 0.7),
                   fontWeight: FontWeight.w500,
                 ),
           ),

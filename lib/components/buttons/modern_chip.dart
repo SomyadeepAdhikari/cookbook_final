@@ -109,7 +109,7 @@ class _ModernChipState extends State<ModernChip>
                   borderRadius: BorderRadius.circular(widget.borderRadius),
                   border: Border.all(
                     color: widget.isSelected
-                        ? selectedColor.withOpacity(0.3)
+                        ? selectedColor.withValues(alpha: 0.3)
                         : (isDark
                               ? AppColors.darkGlassStroke
                               : AppColors.lightGlassStroke),
@@ -118,7 +118,7 @@ class _ModernChipState extends State<ModernChip>
                   boxShadow: [
                     BoxShadow(
                       color: widget.isSelected
-                          ? selectedColor.withOpacity(0.3)
+                          ? selectedColor.withValues(alpha: 0.3)
                           : (isDark
                                 ? AppColors.darkShadow
                                 : AppColors.lightShadow),
@@ -132,7 +132,7 @@ class _ModernChipState extends State<ModernChip>
                           end: Alignment.bottomRight,
                           colors: [
                             selectedColor,
-                            selectedColor.withOpacity(0.8),
+                            selectedColor.withValues(alpha: 0.8),
                           ],
                         )
                       : LinearGradient(
@@ -140,7 +140,7 @@ class _ModernChipState extends State<ModernChip>
                           end: Alignment.bottomRight,
                           colors: [
                             unselectedColor,
-                            unselectedColor.withOpacity(0.8),
+                            unselectedColor.withValues(alpha: 0.8),
                           ],
                         ),
                 ),

@@ -301,7 +301,7 @@ class _CuisinesPageState extends State<CuisinesPage>
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: theme.colorScheme.error.withOpacity(0.1),
+                color: theme.colorScheme.error.withValues(alpha: 0.1),
               ),
               child: Icon(
                 Icons.restaurant_outlined,
@@ -320,7 +320,7 @@ class _CuisinesPageState extends State<CuisinesPage>
             Text(
               'Try exploring other cuisines or check back later for new recipes.',
               style: theme.textTheme.bodyMedium?.copyWith(
-                color: theme.colorScheme.onSurface.withOpacity(0.7),
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
               ),
               textAlign: TextAlign.center,
             ),
@@ -349,7 +349,7 @@ class _CuisinesPageState extends State<CuisinesPage>
                     gradient: LinearGradient(
                       colors: [
                         theme.colorScheme.secondary,
-                        theme.colorScheme.secondary.withOpacity(0.8),
+                        theme.colorScheme.secondary.withValues(alpha: 0.8),
                       ],
                     ),
                     borderRadius: BorderRadius.circular(16),
@@ -374,7 +374,7 @@ class _CuisinesPageState extends State<CuisinesPage>
                       Text(
                         '${_allRecipes.length}+ delicious recipes to explore',
                         style: theme.textTheme.bodyMedium?.copyWith(
-                          color: theme.colorScheme.onSurface.withOpacity(0.7),
+                          color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
                         ),
                       ),
                     ],

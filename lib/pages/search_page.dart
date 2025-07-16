@@ -8,7 +8,6 @@ import '../components/cards/ios_recipe_list_card.dart';
 import '../components/layout/skeleton_loading.dart';
 import '../components/layout/enhanced_empty_state.dart';
 import '../components/layout/gradient_background.dart';
-import '../components/navigation/glassmorphic_app_bar.dart';
 import '../theme/colors.dart';
 import '../theme/animations.dart';
 
@@ -149,11 +148,11 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin {
                                   'What would you like to cook today?',
                                   style: theme.textTheme.bodyLarge?.copyWith(
                                     color: isDark
-                                        ? AppColors.darkOnSurface.withOpacity(
-                                            0.7,
+                                        ? AppColors.darkOnSurface.withValues(
+                                            alpha: 0.7,
                                           )
-                                        : AppColors.lightOnSurface.withOpacity(
-                                            0.7,
+                                        : AppColors.lightOnSurface.withValues(
+                                            alpha: 0.7,
                                           ),
                                     fontWeight: FontWeight.w500,
                                   ),
@@ -276,8 +275,8 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin {
       title: 'No Recipes Found',
       subtitle: 'Try searching with different keywords or check your spelling.',
       iconColor: isDark
-          ? AppColors.darkOnSurface.withOpacity(0.4)
-          : AppColors.lightOnSurface.withOpacity(0.4),
+          ? AppColors.darkOnSurface.withValues(alpha: 0.4)
+          : AppColors.lightOnSurface.withValues(alpha: 0.4),
     );
   }
 
@@ -300,8 +299,8 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin {
             'Found ${totalResults > 0 ? totalResults : results.length} recipe${totalResults == 1 ? '' : 's'}',
             style: theme.textTheme.bodyMedium?.copyWith(
               color: isDark
-                  ? AppColors.darkOnSurface.withOpacity(0.6)
-                  : AppColors.lightOnSurface.withOpacity(0.6),
+                  ? AppColors.darkOnSurface.withValues(alpha: 0.6)
+                  : AppColors.lightOnSurface.withValues(alpha: 0.6),
               fontWeight: FontWeight.w500,
             ),
           ),

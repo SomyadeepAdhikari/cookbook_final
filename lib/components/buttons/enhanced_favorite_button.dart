@@ -108,8 +108,8 @@ class _EnhancedFavoriteButtonState extends State<EnhancedFavoriteButton>
     final inactiveColor =
         widget.inactiveColor ??
         (isDark
-            ? AppColors.darkOnSurface.withOpacity(0.4)
-            : AppColors.lightOnSurface.withOpacity(0.4));
+            ? AppColors.darkOnSurface.withValues(alpha: 0.4)
+            : AppColors.lightOnSurface.withValues(alpha: 0.4));
 
     return AnimatedBuilder(
       animation: Listenable.merge([
@@ -123,7 +123,7 @@ class _EnhancedFavoriteButtonState extends State<EnhancedFavoriteButton>
             HapticFeedback.lightImpact();
             widget.onTap();
           },
-          child: Container(
+          child: SizedBox(
             width: widget.size + 20,
             height: widget.size + 20,
             child: Stack(
@@ -138,8 +138,12 @@ class _EnhancedFavoriteButtonState extends State<EnhancedFavoriteButton>
                       shape: BoxShape.circle,
                       gradient: RadialGradient(
                         colors: [
-                          activeColor.withOpacity(0.4 * _glowAnimation.value),
-                          activeColor.withOpacity(0.1 * _glowAnimation.value),
+                          activeColor.withValues(
+                            alpha: 0.4 * _glowAnimation.value,
+                          ),
+                          activeColor.withValues(
+                            alpha: 0.1 * _glowAnimation.value,
+                          ),
                           Colors.transparent,
                         ],
                       ),
@@ -159,17 +163,17 @@ class _EnhancedFavoriteButtonState extends State<EnhancedFavoriteButton>
                         gradient: LinearGradient(
                           colors: isDark
                               ? [
-                                  AppColors.darkGlass.withOpacity(0.8),
-                                  AppColors.darkGlass.withOpacity(0.6),
+                                  AppColors.darkGlass.withValues(alpha: 0.8),
+                                  AppColors.darkGlass.withValues(alpha: 0.6),
                                 ]
                               : [
-                                  AppColors.lightGlass.withOpacity(0.8),
-                                  AppColors.lightGlass.withOpacity(0.6),
+                                  AppColors.lightGlass.withValues(alpha: 0.8),
+                                  AppColors.lightGlass.withValues(alpha: 0.6),
                                 ],
                         ),
                         border: Border.all(
                           color: widget.isFavorite
-                              ? activeColor.withOpacity(0.6)
+                              ? activeColor.withValues(alpha: 0.6)
                               : (isDark
                                     ? AppColors.darkGlassStroke
                                     : AppColors.lightGlassStroke),
@@ -178,9 +182,9 @@ class _EnhancedFavoriteButtonState extends State<EnhancedFavoriteButton>
                         boxShadow: [
                           BoxShadow(
                             color: widget.isFavorite
-                                ? activeColor.withOpacity(0.3)
+                                ? activeColor.withValues(alpha: 0.3)
                                 : (isDark ? Colors.black : Colors.grey.shade300)
-                                      .withOpacity(0.2),
+                                      .withValues(alpha: 0.2),
                             blurRadius: widget.isFavorite ? 20 : 12,
                             spreadRadius: widget.isFavorite ? 2 : 0,
                           ),
@@ -217,8 +221,8 @@ class _EnhancedFavoriteButtonState extends State<EnhancedFavoriteButton>
                             gradient: LinearGradient(
                               colors: [
                                 Colors.transparent,
-                                Colors.white.withOpacity(
-                                  0.3 * _glowAnimation.value,
+                                Colors.white.withValues(
+                                  alpha: 0.3 * _glowAnimation.value,
                                 ),
                                 Colors.transparent,
                               ],

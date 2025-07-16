@@ -107,8 +107,8 @@ class _CategoryCardState extends State<CategoryCard>
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,
                           colors: [
-                            accentColor.withOpacity(0.2),
-                            accentColor.withOpacity(0.1),
+                            accentColor.withValues(alpha: 0.2),
+                            accentColor.withValues(alpha: 0.1),
                           ],
                         )
                       : LinearGradient(
@@ -120,7 +120,7 @@ class _CategoryCardState extends State<CategoryCard>
                         ),
                   border: widget.isSelected
                       ? Border.all(
-                          color: accentColor.withOpacity(0.5),
+                          color: accentColor.withValues(alpha: 0.5),
                           width: 2,
                         )
                       : null,
@@ -151,10 +151,10 @@ class _CategoryCardState extends State<CategoryCard>
                               begin: Alignment.topLeft,
                               end: Alignment.bottomRight,
                               colors: widget.isSelected
-                                  ? [accentColor.withOpacity(0.8), accentColor]
+                                  ? [accentColor.withValues(alpha: 0.8), accentColor]
                                   : [
-                                      accentColor.withOpacity(0.2),
-                                      accentColor.withOpacity(0.4),
+                                      accentColor.withValues(alpha: 0.2),
+                                      accentColor.withValues(alpha: 0.4),
                                     ],
                             ),
                           ),
@@ -209,7 +209,7 @@ class _CategoryCardState extends State<CategoryCard>
                                         (isDark
                                                 ? AppColors.darkOnSurface
                                                 : AppColors.lightOnSurface)
-                                            .withOpacity(0.7),
+                                            .withValues(alpha: 0.7),
                                   ),
                                   maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
@@ -230,7 +230,7 @@ class _CategoryCardState extends State<CategoryCard>
                                 : (isDark
                                           ? AppColors.darkOnSurface
                                           : AppColors.lightOnSurface)
-                                      .withOpacity(0.5),
+                                      .withValues(alpha: 0.5),
                             size: 16,
                           ),
                         ),

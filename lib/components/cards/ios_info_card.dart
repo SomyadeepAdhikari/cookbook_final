@@ -123,10 +123,10 @@ class _IOSInfoCardState extends State<IOSInfoCard>
                                     colors: [
                                       (widget.iconColor ??
                                               theme.colorScheme.secondary)
-                                          .withOpacity(0.2),
+                                          .withValues(alpha: 0.2),
                                       (widget.iconColor ??
                                               theme.colorScheme.secondary)
-                                          .withOpacity(0.1),
+                                          .withValues(alpha: 0.1),
                                     ],
                                   ),
                                   borderRadius: BorderRadius.circular(12),

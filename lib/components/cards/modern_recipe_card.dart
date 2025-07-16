@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:cookbook_final/pages/information.dart';
+import 'package:cookbook_final/pages/information_redesigned.dart';
 import 'package:cookbook_final/model/favorites_database.dart';
 import 'package:provider/provider.dart';
 import '../../theme/colors.dart';
@@ -87,7 +87,7 @@ class _ModernRecipeCardState extends State<ModernRecipeCard>
     } else {
       Navigator.of(context).push(
         PageRouteBuilder(
-          pageBuilder: (context, animation, secondaryAnimation) => Information(
+          pageBuilder: (context, animation, secondaryAnimation) => InformationRedesigned(
             name: widget.title,
             id: widget.id,
             image: widget.image,
@@ -203,7 +203,7 @@ class _ModernRecipeCardState extends State<ModernRecipeCard>
                                     end: Alignment.bottomCenter,
                                     colors: [
                                       Colors.transparent,
-                                      Colors.black.withOpacity(0.7),
+                                      Colors.black.withValues(alpha: 0.7),
                                     ],
                                   ),
                                 ),
@@ -283,7 +283,7 @@ class _ModernRecipeCardState extends State<ModernRecipeCard>
                                                                 .darkOnSurface
                                                           : AppColors
                                                                 .lightOnSurface)
-                                                      .withOpacity(0.7),
+                                                      .withValues(alpha: 0.7),
                                               fontSize: 11,
                                             ),
                                         maxLines: 1,

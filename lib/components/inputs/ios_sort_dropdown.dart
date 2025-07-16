@@ -91,12 +91,12 @@ class _IOSSortDropdownState extends State<IOSSortDropdown>
                     gradient: LinearGradient(
                       colors: isDark
                           ? [
-                              AppColors.darkGlass.withOpacity(0.9),
-                              AppColors.darkGlass.withOpacity(0.7),
+                              AppColors.darkGlass.withValues(alpha: 0.9),
+                              AppColors.darkGlass.withValues(alpha: 0.7),
                             ]
                           : [
-                              AppColors.lightGlass.withOpacity(0.9),
-                              AppColors.lightGlass.withOpacity(0.7),
+                              AppColors.lightGlass.withValues(alpha: 0.9),
+                              AppColors.lightGlass.withValues(alpha: 0.7),
                             ],
                     ),
                     border: Border.all(
@@ -109,7 +109,7 @@ class _IOSSortDropdownState extends State<IOSSortDropdown>
                     boxShadow: [
                       BoxShadow(
                         color: (isDark ? Colors.black : Colors.grey.shade300)
-                            .withOpacity(0.2),
+                            .withValues(alpha: 0.2),
                         blurRadius: 12,
                         offset: const Offset(0, 4),
                       ),
@@ -151,8 +151,8 @@ class _IOSSortDropdownState extends State<IOSSortDropdown>
                                 Icons.keyboard_arrow_down_rounded,
                                 size: 20,
                                 color: isDark
-                                    ? AppColors.darkOnSurface.withOpacity(0.7)
-                                    : AppColors.lightOnSurface.withOpacity(0.7),
+                                    ? AppColors.darkOnSurface.withValues(alpha: 0.7)
+                                    : AppColors.lightOnSurface.withValues(alpha: 0.7),
                               ),
                             ),
                           ],
@@ -194,7 +194,7 @@ class IOSSortDropdownMenu extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: (isDark ? Colors.black : Colors.grey.shade400).withOpacity(
+            color: (isDark ? Colors.black : Colors.grey.shade400).withValues(alpha: 
               0.3,
             ),
             blurRadius: 20,
@@ -211,12 +211,12 @@ class IOSSortDropdownMenu extends StatelessWidget {
               gradient: LinearGradient(
                 colors: isDark
                     ? [
-                        AppColors.darkGlass.withOpacity(0.95),
-                        AppColors.darkGlass.withOpacity(0.85),
+                        AppColors.darkGlass.withValues(alpha: 0.95),
+                        AppColors.darkGlass.withValues(alpha: 0.85),
                       ]
                     : [
-                        AppColors.lightGlass.withOpacity(0.95),
-                        AppColors.lightGlass.withOpacity(0.85),
+                        AppColors.lightGlass.withValues(alpha: 0.95),
+                        AppColors.lightGlass.withValues(alpha: 0.85),
                       ],
               ),
               border: Border.all(
@@ -242,7 +242,7 @@ class IOSSortDropdownMenu extends StatelessWidget {
                       ),
                       decoration: BoxDecoration(
                         color: isSelected
-                            ? theme.colorScheme.secondary.withOpacity(0.1)
+                            ? theme.colorScheme.secondary.withValues(alpha: 0.1)
                             : null,
                       ),
                       child: Row(
@@ -253,8 +253,8 @@ class IOSSortDropdownMenu extends StatelessWidget {
                             color: isSelected
                                 ? theme.colorScheme.secondary
                                 : (isDark
-                                      ? AppColors.darkOnSurface.withOpacity(0.7)
-                                      : AppColors.lightOnSurface.withOpacity(
+                                      ? AppColors.darkOnSurface.withValues(alpha: 0.7)
+                                      : AppColors.lightOnSurface.withValues(alpha: 
                                           0.7,
                                         )),
                           ),

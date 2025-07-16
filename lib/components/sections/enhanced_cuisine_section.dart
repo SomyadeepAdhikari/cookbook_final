@@ -73,7 +73,7 @@ class _EnhancedCuisineSectionState extends State<EnhancedCuisineSection> {
                   gradient: LinearGradient(
                     colors: [
                       theme.colorScheme.secondary,
-                      theme.colorScheme.secondary.withOpacity(0.7),
+                      theme.colorScheme.secondary.withValues(alpha: 0.7),
                     ],
                   ),
                   borderRadius: BorderRadius.circular(12),
@@ -101,7 +101,7 @@ class _EnhancedCuisineSectionState extends State<EnhancedCuisineSection> {
                             (isDark
                                     ? AppColors.darkOnSurface
                                     : AppColors.lightOnSurface)
-                                .withOpacity(0.7),
+                                .withValues(alpha: 0.7),
                       ),
                     ),
                   ],

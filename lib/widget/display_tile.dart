@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:cookbook_final/pages/information.dart';
+import 'package:cookbook_final/pages/information_redesigned.dart';
 import 'package:cookbook_final/widget/recipe_card.dart';
 import 'package:cookbook_final/util/secrets.dart';
 import 'package:flutter/material.dart';
@@ -100,7 +100,7 @@ class _DisplayTileState extends State<DisplayTile> {
                       onTap: () {
                         Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: (context) => Information(
+                            builder: (context) => InformationRedesigned(
                               name: name,
                               id: resultId,
                               image: image,
@@ -126,7 +126,7 @@ class _DisplayTileState extends State<DisplayTile> {
                 dotHeight: 8,
                 dotWidth: 16,
                 activeDotColor: colorScheme.secondary,
-                dotColor: colorScheme.secondary.withOpacity(0.2),
+                dotColor: colorScheme.secondary.withValues(alpha: 0.2),
               ),
             ),
           ],

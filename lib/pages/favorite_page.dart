@@ -113,7 +113,7 @@ class _FavoritePageState extends State<FavoritePage>
               child: Icon(
                 Icons.favorite_border_rounded,
                 size: 48,
-                color: theme.colorScheme.secondary.withOpacity(0.7),
+                color: theme.colorScheme.secondary.withValues(alpha: 0.7),
               ),
             ),
 
@@ -141,7 +141,7 @@ class _FavoritePageState extends State<FavoritePage>
                     (isDark
                             ? AppColors.darkOnSurface
                             : AppColors.lightOnSurface)
-                        .withOpacity(0.7),
+                        .withValues(alpha: 0.7),
                 height: 1.5,
               ),
               textAlign: TextAlign.center,
@@ -155,13 +155,13 @@ class _FavoritePageState extends State<FavoritePage>
                 gradient: LinearGradient(
                   colors: [
                     theme.colorScheme.secondary,
-                    theme.colorScheme.secondary.withOpacity(0.8),
+                    theme.colorScheme.secondary.withValues(alpha: 0.8),
                   ],
                 ),
                 borderRadius: BorderRadius.circular(16),
                 boxShadow: [
                   BoxShadow(
-                    color: theme.colorScheme.secondary.withOpacity(0.3),
+                    color: theme.colorScheme.secondary.withValues(alpha: 0.3),
                     blurRadius: 12,
                     offset: const Offset(0, 6),
                   ),
@@ -241,7 +241,7 @@ class _FavoritePageState extends State<FavoritePage>
                         gradient: LinearGradient(
                           colors: [
                             AppColors.error,
-                            AppColors.error.withOpacity(0.8),
+                            AppColors.error.withValues(alpha: 0.8),
                           ],
                         ),
                         borderRadius: BorderRadius.circular(16),
@@ -274,7 +274,7 @@ class _FavoritePageState extends State<FavoritePage>
                                   (isDark
                                           ? AppColors.darkOnSurface
                                           : AppColors.lightOnSurface)
-                                      .withOpacity(0.7),
+                                      .withValues(alpha: 0.7),
                             ),
                           ),
                         ],
@@ -286,7 +286,7 @@ class _FavoritePageState extends State<FavoritePage>
                 Text(
                   'Swipe left on any recipe to remove it from your favorites',
                   style: theme.textTheme.bodySmall?.copyWith(
-                    color: theme.colorScheme.secondary.withOpacity(0.8),
+                    color: theme.colorScheme.secondary.withValues(alpha: 0.8),
                     fontStyle: FontStyle.italic,
                   ),
                 ),

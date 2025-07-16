@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:cookbook_final/pages/information.dart';
+import 'package:cookbook_final/pages/information_redesigned.dart';
 import 'package:cookbook_final/model/favorites_database.dart';
 import 'package:provider/provider.dart';
 import '../../theme/colors.dart';
@@ -68,11 +68,12 @@ class _IOSFavoriteCardState extends State<IOSFavoriteCard>
   void _onTap() {
     Navigator.of(context).push(
       PageRouteBuilder(
-        pageBuilder: (context, animation, secondaryAnimation) => Information(
-          name: widget.title,
-          id: widget.realId,
-          image: widget.image,
-        ),
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            InformationRedesigned(
+              name: widget.title,
+              id: widget.realId,
+              image: widget.image,
+            ),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           return SlideTransition(
             position:
@@ -100,11 +101,14 @@ class _IOSFavoriteCardState extends State<IOSFavoriteCard>
       _isDeleting = true;
     });
 
+    // Store context before async gap
+    final database = context.read<FavoritesDatabase>();
+
     // Animate out
     await _animationController.reverse();
 
     // Delete from database
-    context.read<FavoritesDatabase>().deleteId(widget.realId);
+    database.deleteId(widget.realId);
 
     // Call onDelete callback
     if (widget.onDelete != null) {
@@ -135,7 +139,7 @@ class _IOSFavoriteCardState extends State<IOSFavoriteCard>
           content: Text(
             'Are you sure you want to remove "${widget.title}" from your favorites?',
             style: theme.textTheme.bodyMedium?.copyWith(
-              color: theme.colorScheme.onSurface.withOpacity(0.8),
+              color: theme.colorScheme.onSurface.withValues(alpha: 0.8),
             ),
           ),
           actions: [
@@ -144,7 +148,7 @@ class _IOSFavoriteCardState extends State<IOSFavoriteCard>
               child: Text(
                 'Cancel',
                 style: TextStyle(
-                  color: theme.colorScheme.onSurface.withOpacity(0.7),
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
                 ),
               ),
             ),
@@ -192,7 +196,7 @@ class _IOSFavoriteCardState extends State<IOSFavoriteCard>
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       colors: [
-                        AppColors.error.withOpacity(0.8),
+                        AppColors.error.withValues(alpha: 0.8),
                         AppColors.error,
                       ],
                     ),
@@ -251,7 +255,7 @@ class _IOSFavoriteCardState extends State<IOSFavoriteCard>
                         child: Row(
                           children: [
                             // Image Section
-                            Container(
+                            SizedBox(
                               width: 100,
                               height: double.infinity,
                               child: ClipRRect(
@@ -277,9 +281,13 @@ class _IOSFavoriteCardState extends State<IOSFavoriteCard>
                                                 size: 32,
                                                 color: isDark
                                                     ? AppColors.darkOnSurface
-                                                          .withOpacity(0.5)
+                                                          .withValues(
+                                                            alpha: 0.5,
+                                                          )
                                                     : AppColors.lightOnSurface
-                                                          .withOpacity(0.5),
+                                                          .withValues(
+                                                            alpha: 0.5,
+                                                          ),
                                               ),
                                             );
                                           },
@@ -291,16 +299,17 @@ class _IOSFavoriteCardState extends State<IOSFavoriteCard>
                                       child: Container(
                                         padding: const EdgeInsets.all(4),
                                         decoration: BoxDecoration(
-                                          color: AppColors.error.withOpacity(
-                                            0.9,
+                                          color: AppColors.error.withValues(
+                                            alpha: 0.9,
                                           ),
                                           borderRadius: BorderRadius.circular(
                                             8,
                                           ),
                                           boxShadow: [
                                             BoxShadow(
-                                              color: AppColors.error
-                                                  .withOpacity(0.3),
+                                              color: AppColors.error.withValues(
+                                                alpha: 0.3,
+                                              ),
                                               blurRadius: 4,
                                               offset: const Offset(0, 2),
                                             ),
@@ -355,7 +364,7 @@ class _IOSFavoriteCardState extends State<IOSFavoriteCard>
                                                               .darkOnSurface
                                                         : AppColors
                                                               .lightOnSurface)
-                                                    .withOpacity(0.6),
+                                                    .withValues(alpha: 0.6),
                                             fontSize: 12,
                                           ),
                                     ),
@@ -369,7 +378,7 @@ class _IOSFavoriteCardState extends State<IOSFavoriteCard>
                                           Icons.swipe_left_rounded,
                                           size: 16,
                                           color: theme.colorScheme.secondary
-                                              .withOpacity(0.7),
+                                              .withValues(alpha: 0.7),
                                         ),
                                         const SizedBox(width: 6),
                                         Text(
@@ -379,7 +388,7 @@ class _IOSFavoriteCardState extends State<IOSFavoriteCard>
                                                 color: theme
                                                     .colorScheme
                                                     .secondary
-                                                    .withOpacity(0.7),
+                                                    .withValues(alpha: 0.7),
                                                 fontSize: 11,
                                               ),
                                         ),

@@ -47,7 +47,7 @@ class _HomePageBodyState extends State<HomePageBody> {
                     borderRadius: BorderRadius.circular(16),
                     boxShadow: [
                       BoxShadow(
-                        color: theme.colorScheme.secondary.withOpacity(0.3),
+                        color: theme.colorScheme.secondary.withValues(alpha: 0.3),
                         blurRadius: 12,
                         offset: const Offset(0, 4),
                       ),
@@ -64,7 +64,7 @@ class _HomePageBodyState extends State<HomePageBody> {
                             gradient: LinearGradient(
                               colors: [
                                 theme.colorScheme.secondary,
-                                theme.colorScheme.secondary.withOpacity(0.7),
+                                theme.colorScheme.secondary.withValues(alpha: 0.7),
                               ],
                             ),
                             borderRadius: BorderRadius.circular(16),
@@ -101,7 +101,7 @@ class _HomePageBodyState extends State<HomePageBody> {
                               (isDark
                                       ? AppColors.darkOnSurface
                                       : AppColors.lightOnSurface)
-                                  .withOpacity(0.7),
+                                  .withValues(alpha: 0.7),
                         ),
                       ),
                     ],
@@ -113,8 +113,8 @@ class _HomePageBodyState extends State<HomePageBody> {
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     color: isDark
-                        ? AppColors.darkSurface.withOpacity(0.5)
-                        : AppColors.lightSurface.withOpacity(0.5),
+                        ? AppColors.darkSurface.withValues(alpha: 0.5)
+                        : AppColors.lightSurface.withValues(alpha: 0.5),
                     border: Border.all(
                       color: isDark
                           ? AppColors.darkGlassStroke
@@ -187,7 +187,7 @@ class _HomePageBodyState extends State<HomePageBody> {
                               (isDark
                                       ? AppColors.darkOnSurface
                                       : AppColors.lightOnSurface)
-                                  .withOpacity(0.7),
+                                  .withValues(alpha: 0.7),
                         ),
                       ),
                     ],

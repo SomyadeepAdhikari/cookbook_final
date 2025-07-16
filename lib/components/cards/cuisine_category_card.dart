@@ -90,7 +90,7 @@ class _CuisineCategoryCardState extends State<CuisineCategoryCard>
                 boxShadow: [
                   BoxShadow(
                     color: widget.isSelected
-                        ? theme.colorScheme.secondary.withOpacity(0.3)
+                        ? theme.colorScheme.secondary.withValues(alpha: 0.3)
                         : (isDark
                               ? AppColors.darkShadow
                               : AppColors.lightShadow),
@@ -111,8 +111,8 @@ class _CuisineCategoryCardState extends State<CuisineCategoryCard>
                         end: Alignment.bottomRight,
                         colors: widget.isSelected
                             ? [
-                                theme.colorScheme.secondary.withOpacity(0.8),
-                                theme.colorScheme.secondary.withOpacity(0.6),
+                                theme.colorScheme.secondary.withValues(alpha: 0.8),
+                                theme.colorScheme.secondary.withValues(alpha: 0.6),
                               ]
                             : isDark
                             ? AppColors.darkCardGradient
@@ -120,7 +120,7 @@ class _CuisineCategoryCardState extends State<CuisineCategoryCard>
                       ),
                       border: Border.all(
                         color: widget.isSelected
-                            ? theme.colorScheme.secondary.withOpacity(0.5)
+                            ? theme.colorScheme.secondary.withValues(alpha: 0.5)
                             : (isDark
                                   ? AppColors.darkGlassStroke
                                   : AppColors.lightGlassStroke),
@@ -148,7 +148,7 @@ class _CuisineCategoryCardState extends State<CuisineCategoryCard>
                                       ),
                                       colors: [
                                         Colors.transparent,
-                                        Colors.white.withOpacity(0.1),
+                                        Colors.white.withValues(alpha: 0.1),
                                         Colors.transparent,
                                       ],
                                     ),
@@ -171,12 +171,12 @@ class _CuisineCategoryCardState extends State<CuisineCategoryCard>
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                   color: widget.isSelected
-                                      ? Colors.white.withOpacity(0.2)
+                                      ? Colors.white.withValues(alpha: 0.2)
                                       : Colors.transparent,
                                   boxShadow: widget.isSelected
                                       ? [
                                           BoxShadow(
-                                            color: Colors.white.withOpacity(
+                                            color: Colors.white.withValues(alpha: 
                                               0.3,
                                             ),
                                             blurRadius: 8,
@@ -220,12 +220,12 @@ class _CuisineCategoryCardState extends State<CuisineCategoryCard>
                                   widget.description,
                                   style: theme.textTheme.bodySmall?.copyWith(
                                     color: widget.isSelected
-                                        ? Colors.white.withOpacity(0.9)
+                                        ? Colors.white.withValues(alpha: 0.9)
                                         : (isDark
                                               ? AppColors.darkOnSurface
-                                                    .withOpacity(0.7)
+                                                    .withValues(alpha: 0.7)
                                               : AppColors.lightOnSurface
-                                                    .withOpacity(0.7)),
+                                                    .withValues(alpha: 0.7)),
                                     fontSize: 9,
                                   ),
                                   textAlign: TextAlign.center,

@@ -85,8 +85,8 @@ class _AnimatedFavoriteButtonState extends State<AnimatedFavoriteButton>
     final unfavoriteColor =
         widget.unfavoriteColor ??
         (isDark
-            ? AppColors.darkOnSurface.withOpacity(0.6)
-            : AppColors.lightOnSurface.withOpacity(0.6));
+            ? AppColors.darkOnSurface.withValues(alpha: 0.6)
+            : AppColors.lightOnSurface.withValues(alpha: 0.6));
 
     return GestureDetector(
       onTap: _handleTap,
@@ -102,7 +102,7 @@ class _AnimatedFavoriteButtonState extends State<AnimatedFavoriteButton>
                 height: widget.size + 16,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Colors.white.withOpacity(0.9),
+                  color: Colors.white.withValues(alpha: 0.9),
                   boxShadow: [
                     BoxShadow(
                       color: isDark

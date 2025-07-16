@@ -148,7 +148,7 @@ class _ModernCategoryChipState extends State<ModernCategoryChip>
                       borderRadius: BorderRadius.circular(20),
                       boxShadow: [
                         BoxShadow(
-                          color: theme.colorScheme.secondary.withOpacity(
+                          color: theme.colorScheme.secondary.withValues(alpha: 
                             0.3 * _glowAnimation.value,
                           ),
                           blurRadius: 20 * _glowAnimation.value,
@@ -173,7 +173,7 @@ class _ModernCategoryChipState extends State<ModernCategoryChip>
                             end: Alignment.bottomRight,
                             colors: [
                               theme.colorScheme.secondary,
-                              theme.colorScheme.secondary.withOpacity(0.8),
+                              theme.colorScheme.secondary.withValues(alpha: 0.8),
                             ],
                           )
                         : LinearGradient(
@@ -186,7 +186,7 @@ class _ModernCategoryChipState extends State<ModernCategoryChip>
                     borderRadius: BorderRadius.circular(16),
                     border: Border.all(
                       color: widget.isSelected
-                          ? theme.colorScheme.secondary.withOpacity(0.3)
+                          ? theme.colorScheme.secondary.withValues(alpha: 0.3)
                           : isDark
                           ? AppColors.darkGlassStroke
                           : AppColors.lightGlassStroke,
@@ -195,7 +195,7 @@ class _ModernCategoryChipState extends State<ModernCategoryChip>
                     boxShadow: [
                       BoxShadow(
                         color: widget.isSelected
-                            ? theme.colorScheme.secondary.withOpacity(0.2)
+                            ? theme.colorScheme.secondary.withValues(alpha: 0.2)
                             : isDark
                             ? AppColors.darkShadow
                             : AppColors.lightShadow,
@@ -213,8 +213,8 @@ class _ModernCategoryChipState extends State<ModernCategoryChip>
                         height: 32,
                         decoration: BoxDecoration(
                           color: widget.isSelected
-                              ? Colors.white.withOpacity(0.2)
-                              : theme.colorScheme.secondary.withOpacity(0.1),
+                              ? Colors.white.withValues(alpha: 0.2)
+                              : theme.colorScheme.secondary.withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Center(
@@ -284,7 +284,7 @@ class _ModernCategoryChipState extends State<ModernCategoryChip>
                           ),
                           boxShadow: [
                             BoxShadow(
-                              color: AppColors.error.withOpacity(0.3),
+                              color: AppColors.error.withValues(alpha: 0.3),
                               blurRadius: 6,
                               spreadRadius: 1,
                             ),

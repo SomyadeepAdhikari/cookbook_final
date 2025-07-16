@@ -93,7 +93,7 @@ class _IOSCuisineListCardState extends State<IOSCuisineListCard>
                   BoxShadow(
                     color:
                         (isDark ? AppColors.darkShadow : AppColors.lightShadow)
-                            .withOpacity(_shadowAnimation.value),
+                            .withValues(alpha: _shadowAnimation.value),
                     blurRadius: 16 * _shadowAnimation.value,
                     offset: Offset(0, 8 * _shadowAnimation.value),
                   ),
@@ -129,13 +129,13 @@ class _IOSCuisineListCardState extends State<IOSCuisineListCard>
                             begin: Alignment.topLeft,
                             end: Alignment.bottomRight,
                             colors: [
-                              theme.colorScheme.secondary.withOpacity(0.1),
-                              theme.colorScheme.secondary.withOpacity(0.05),
+                              theme.colorScheme.secondary.withValues(alpha: 0.1),
+                              theme.colorScheme.secondary.withValues(alpha: 0.05),
                             ],
                           ),
                           borderRadius: BorderRadius.circular(16),
                           border: Border.all(
-                            color: theme.colorScheme.secondary.withOpacity(0.2),
+                            color: theme.colorScheme.secondary.withValues(alpha: 0.2),
                             width: 0.5,
                           ),
                         ),
@@ -183,11 +183,11 @@ class _IOSCuisineListCardState extends State<IOSCuisineListCard>
                                   ),
                                   decoration: BoxDecoration(
                                     color: theme.colorScheme.secondary
-                                        .withOpacity(0.1),
+                                        .withValues(alpha: 0.1),
                                     borderRadius: BorderRadius.circular(8),
                                     border: Border.all(
                                       color: theme.colorScheme.secondary
-                                          .withOpacity(0.2),
+                                          .withValues(alpha: 0.2),
                                       width: 0.5,
                                     ),
                                   ),
@@ -213,7 +213,7 @@ class _IOSCuisineListCardState extends State<IOSCuisineListCard>
                                     (isDark
                                             ? AppColors.darkOnSurface
                                             : AppColors.lightOnSurface)
-                                        .withOpacity(0.7),
+                                        .withValues(alpha: 0.7),
                                 fontSize: 14,
                                 height: 1.3,
                               ),
@@ -244,7 +244,7 @@ class _IOSCuisineListCardState extends State<IOSCuisineListCard>
                                   height: 28,
                                   decoration: BoxDecoration(
                                     color: theme.colorScheme.secondary
-                                        .withOpacity(0.1),
+                                        .withValues(alpha: 0.1),
                                     borderRadius: BorderRadius.circular(8),
                                   ),
                                   child: Icon(

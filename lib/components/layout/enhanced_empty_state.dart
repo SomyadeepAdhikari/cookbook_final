@@ -95,18 +95,18 @@ class _EnhancedEmptyStateState extends State<EnhancedEmptyState>
                         end: Alignment.bottomRight,
                         colors: isDark
                             ? [
-                                AppColors.darkGlass.withOpacity(0.2),
-                                AppColors.darkGlass.withOpacity(0.1),
+                                AppColors.darkGlass.withValues(alpha: 0.2),
+                                AppColors.darkGlass.withValues(alpha: 0.1),
                               ]
                             : [
-                                AppColors.lightGlass.withOpacity(0.3),
-                                AppColors.lightGlass.withOpacity(0.1),
+                                AppColors.lightGlass.withValues(alpha: 0.3),
+                                AppColors.lightGlass.withValues(alpha: 0.1),
                               ],
                       ),
                       border: Border.all(
                         color: isDark
-                            ? AppColors.darkGlassStroke.withOpacity(0.2)
-                            : AppColors.lightGlassStroke.withOpacity(0.2),
+                            ? AppColors.darkGlassStroke.withValues(alpha: 0.2)
+                            : AppColors.lightGlassStroke.withValues(alpha: 0.2),
                         width: 0.5,
                       ),
                     ),
@@ -119,8 +119,8 @@ class _EnhancedEmptyStateState extends State<EnhancedEmptyState>
                           color:
                               widget.iconColor ??
                               (isDark
-                                  ? AppColors.darkOnSurface.withOpacity(0.4)
-                                  : AppColors.lightOnSurface.withOpacity(0.4)),
+                                  ? AppColors.darkOnSurface.withValues(alpha: 0.4)
+                                  : AppColors.lightOnSurface.withValues(alpha: 0.4)),
                         ),
                       ),
                     ),
@@ -134,8 +134,8 @@ class _EnhancedEmptyStateState extends State<EnhancedEmptyState>
                   widget.title,
                   style: theme.textTheme.headlineSmall?.copyWith(
                     color: isDark
-                        ? AppColors.darkOnSurface.withOpacity(0.8)
-                        : AppColors.lightOnSurface.withOpacity(0.8),
+                        ? AppColors.darkOnSurface.withValues(alpha: 0.8)
+                        : AppColors.lightOnSurface.withValues(alpha: 0.8),
                     fontWeight: FontWeight.w700,
                     letterSpacing: -0.5,
                   ),
@@ -149,8 +149,8 @@ class _EnhancedEmptyStateState extends State<EnhancedEmptyState>
                   widget.subtitle,
                   style: theme.textTheme.bodyLarge?.copyWith(
                     color: isDark
-                        ? AppColors.darkOnSurface.withOpacity(0.6)
-                        : AppColors.lightOnSurface.withOpacity(0.6),
+                        ? AppColors.darkOnSurface.withValues(alpha: 0.6)
+                        : AppColors.lightOnSurface.withValues(alpha: 0.6),
                     fontWeight: FontWeight.w400,
                     height: 1.5,
                   ),
