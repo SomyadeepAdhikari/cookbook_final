@@ -1,7 +1,6 @@
 import 'package:cookbook_final/model/favorite.dart';
 import 'package:cookbook_final/model/favorites_database.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import '../theme/colors.dart';
 import '../theme/animations.dart';

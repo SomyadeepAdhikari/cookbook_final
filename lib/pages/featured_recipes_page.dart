@@ -1,12 +1,12 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import '../util/secrets.dart';
 import '../theme/colors.dart';
 import '../theme/animations.dart';
 import '../components/cards/ios_recipe_list_card.dart';
 import '../components/layout/gradient_background.dart';
+import '../components/layout/elegant_loading_text.dart';
 import '../components/navigation/glassmorphic_app_bar.dart';
 
 class FeaturedRecipesPage extends StatefulWidget {
@@ -189,30 +189,10 @@ class _FeaturedRecipesPageState extends State<FeaturedRecipesPage>
   }
 
   Widget _buildLoadingState(BuildContext context) {
-    final theme = Theme.of(context);
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: theme.colorScheme.secondary.withOpacity(0.1),
-            ),
-            child: CircularProgressIndicator(
-              color: theme.colorScheme.secondary,
-              strokeWidth: 3,
-            ),
-          ),
-          const SizedBox(height: 16),
-          Text(
-            'Loading featured recipes...',
-            style: theme.textTheme.bodyMedium?.copyWith(
-              color: theme.colorScheme.onSurface.withOpacity(0.7),
-            ),
-          ),
-        ],
+    return const Center(
+      child: ElegantLoadingText(
+        message: 'Finding featured recipes',
+        showDots: true,
       ),
     );
   }
@@ -315,7 +295,11 @@ class _FeaturedRecipesPageState extends State<FeaturedRecipesPage>
               return _isLoadingMore
                   ? const Padding(
                       padding: EdgeInsets.all(24.0),
-                      child: Center(child: CircularProgressIndicator()),
+                      child: Center(
+                        child: SimpleLoadingText(
+                          message: 'Loading more recipes...',
+                        ),
+                      ),
                     )
                   : const SizedBox.shrink();
             }

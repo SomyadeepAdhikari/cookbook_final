@@ -6,19 +6,22 @@ import '../../theme/colors.dart';
 class GradientBackground extends StatelessWidget {
   final Widget child;
   final List<Color>? colors;
-  final bool isDark;
+  final bool? isDark;
 
   const GradientBackground({
     super.key,
     required this.child,
     this.colors,
-    this.isDark = false,
+    this.isDark,
   });
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final effectiveIsDark = isDark ?? (theme.brightness == Brightness.dark);
     final gradientColors =
-        colors ?? (isDark ? AppColors.darkGradient : AppColors.lightGradient);
+        colors ??
+        (effectiveIsDark ? AppColors.darkGradient : AppColors.lightGradient);
 
     return Container(
       decoration: BoxDecoration(
@@ -81,8 +84,8 @@ class GlassmorphicContainer extends StatelessWidget {
         boxShadow: [
           BoxShadow(
             color: isDark ? AppColors.darkShadow : AppColors.lightShadow,
-            blurRadius: 20,
-            offset: const Offset(0, 10),
+            blurRadius: 5,
+            offset: const Offset(2, 2),
           ),
         ],
       ),

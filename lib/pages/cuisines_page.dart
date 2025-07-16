@@ -1,10 +1,10 @@
 import 'dart:convert';
 
-import 'package:cookbook_final/pages/search_page.dart';
 import 'package:cookbook_final/components/chips/modern_category_chip.dart';
 import 'package:cookbook_final/components/cards/ios_recipe_list_card.dart';
+import 'package:cookbook_final/components/inputs/ios_sort_dropdown.dart';
+import 'package:cookbook_final/components/layout/elegant_loading_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:cookbook_final/util/secrets.dart';
 import 'package:http/http.dart' as http;
 import '../theme/colors.dart';
@@ -32,6 +32,7 @@ class _CuisinesPageState extends State<CuisinesPage>
   bool _isLoadingMore = false;
   final ScrollController _scrollController = ScrollController();
   late AnimationController _animationController;
+  SortOption _selectedSort = SortOption.alphabetical;
 
   // Cuisine data with emojis
   final Map<String, String> cuisineEmojis = {
@@ -147,6 +148,39 @@ class _CuisinesPageState extends State<CuisinesPage>
     }
   }
 
+  void _sortRecipes() {
+    setState(() {
+      switch (_selectedSort) {
+        case SortOption.alphabetical:
+          _allRecipes.sort(
+            (a, b) => (a['title'] ?? '').compareTo(b['title'] ?? ''),
+          );
+          break;
+        case SortOption.reverseAlphabetical:
+          _allRecipes.sort(
+            (a, b) => (b['title'] ?? '').compareTo(a['title'] ?? ''),
+          );
+          break;
+        case SortOption.rating:
+          _allRecipes.sort(
+            (a, b) =>
+                (b['aggregateLikes'] ?? 0).compareTo(a['aggregateLikes'] ?? 0),
+          );
+          break;
+        case SortOption.newest:
+          // Keep original order for newest
+          break;
+      }
+    });
+  }
+
+  void _onSortChanged(SortOption newSort) {
+    setState(() {
+      _selectedSort = newSort;
+    });
+    _sortRecipes();
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -183,38 +217,6 @@ class _CuisinesPageState extends State<CuisinesPage>
               },
             ),
           ),
-          actions: [
-            Container(
-              margin: const EdgeInsets.only(right: 8),
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: isDark ? AppColors.darkGlass : AppColors.lightGlass,
-                border: Border.all(
-                  color: isDark
-                      ? AppColors.darkGlassStroke
-                      : AppColors.lightGlassStroke,
-                ),
-              ),
-              child: IconButton(
-                icon: Icon(
-                  Icons.search_rounded,
-                  color: isDark
-                      ? AppColors.darkOnSurface
-                      : AppColors.lightOnSurface,
-                  size: 20,
-                ),
-                onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return const SafeArea(child: SearchPage());
-                      },
-                    ),
-                  );
-                },
-              ),
-            ),
-          ],
         ),
         body: SafeArea(
           child: FadeTransition(
@@ -279,30 +281,10 @@ class _CuisinesPageState extends State<CuisinesPage>
   }
 
   Widget _buildLoadingState(BuildContext context) {
-    final theme = Theme.of(context);
     return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            padding: const EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: theme.colorScheme.secondary.withOpacity(0.1),
-            ),
-            child: CircularProgressIndicator(
-              color: theme.colorScheme.secondary,
-              strokeWidth: 3,
-            ),
-          ),
-          const SizedBox(height: 24),
-          Text(
-            'Finding $searchRecipe recipes...',
-            style: theme.textTheme.bodyLarge?.copyWith(
-              color: theme.colorScheme.onSurface.withOpacity(0.7),
-            ),
-          ),
-        ],
+      child: ElegantLoadingText(
+        message: 'Finding $searchRecipe recipes',
+        showDots: true,
       ),
     );
   }
@@ -398,6 +380,14 @@ class _CuisinesPageState extends State<CuisinesPage>
                     ],
                   ),
                 ),
+                // Sort Dropdown
+                Container(
+                  margin: const EdgeInsets.only(left: 16),
+                  child: IOSSortDropdown(
+                    selectedOption: _selectedSort,
+                    onChanged: _onSortChanged,
+                  ),
+                ),
               ],
             ),
           ),
@@ -410,7 +400,11 @@ class _CuisinesPageState extends State<CuisinesPage>
               return _isLoadingMore
                   ? const Padding(
                       padding: EdgeInsets.all(24.0),
-                      child: Center(child: CircularProgressIndicator()),
+                      child: Center(
+                        child: SimpleLoadingText(
+                          message: 'Loading more recipes...',
+                        ),
+                      ),
                     )
                   : const SizedBox.shrink();
             }

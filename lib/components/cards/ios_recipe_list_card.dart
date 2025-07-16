@@ -4,7 +4,7 @@ import 'package:cookbook_final/model/favorites_database.dart';
 import 'package:provider/provider.dart';
 import '../../theme/colors.dart';
 import '../../theme/animations.dart';
-import '../buttons/animated_favorite_button.dart';
+import '../buttons/enhanced_favorite_button.dart';
 
 /// iOS 18-inspired recipe list card with advanced visual hierarchy
 class IOSRecipeListCard extends StatefulWidget {
@@ -46,7 +46,6 @@ class _IOSRecipeListCardState extends State<IOSRecipeListCard>
   late AnimationController _animationController;
   late Animation<double> _scaleAnimation;
   late Animation<double> _shadowAnimation;
-  bool _isPressed = false;
   bool _isFavorite = false;
 
   @override
@@ -86,17 +85,14 @@ class _IOSRecipeListCardState extends State<IOSRecipeListCard>
   }
 
   void _onTapDown(TapDownDetails details) {
-    setState(() => _isPressed = true);
     _animationController.forward();
   }
 
   void _onTapUp(TapUpDetails details) {
-    setState(() => _isPressed = false);
     _animationController.reverse();
   }
 
   void _onTapCancel() {
-    setState(() => _isPressed = false);
     _animationController.reverse();
   }
 
@@ -151,20 +147,31 @@ class _IOSRecipeListCardState extends State<IOSRecipeListCard>
               margin: const EdgeInsets.only(bottom: 4),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
-                boxShadow: [
-                  BoxShadow(
-                    color:
-                        (isDark ? AppColors.darkShadow : AppColors.lightShadow)
-                            .withOpacity(_shadowAnimation.value),
-                    blurRadius: 16 * _shadowAnimation.value,
-                    offset: Offset(0, 8 * _shadowAnimation.value),
-                  ),
-                ],
+                boxShadow: isDark
+                    ? [
+                        BoxShadow(
+                          color: AppColors.darkShadow.withOpacity(
+                            _shadowAnimation.value,
+                          ),
+                          blurRadius: 16 * _shadowAnimation.value,
+                          offset: Offset(0, 8 * _shadowAnimation.value),
+                        ),
+                      ]
+                    : [
+                        // Very subtle shadow for light mode
+                        BoxShadow(
+                          color: AppColors.lightShadow.withOpacity(
+                            _shadowAnimation.value * 0.5,
+                          ),
+                          blurRadius: 8 * _shadowAnimation.value,
+                          offset: Offset(0, 4 * _shadowAnimation.value),
+                        ),
+                      ],
               ),
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(24),
                 child: Container(
-                  height: 160,
+                  constraints: const BoxConstraints(minHeight: 180),
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       begin: Alignment.topCenter,
@@ -180,76 +187,100 @@ class _IOSRecipeListCardState extends State<IOSRecipeListCard>
                       width: 0.5,
                     ),
                   ),
-                  child: Row(
-                    children: [
-                      // Image Section
-                      Container(
-                        width: 120,
-                        height: double.infinity,
-                        decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(20),
-                            bottomLeft: Radius.circular(20),
-                          ),
-                        ),
-                        child: ClipRRect(
-                          borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(20),
-                            bottomLeft: Radius.circular(20),
-                          ),
-                          child: Stack(
-                            children: [
-                              Image.network(
-                                widget.image,
-                                width: double.infinity,
-                                height: double.infinity,
-                                fit: BoxFit.cover,
-                                errorBuilder: (context, error, stackTrace) {
-                                  return Container(
-                                    color: isDark
-                                        ? AppColors.darkSurface
-                                        : AppColors.lightSurface,
-                                    child: Icon(
-                                      Icons.restaurant_rounded,
-                                      size: 32,
-                                      color: isDark
-                                          ? AppColors.darkOnSurface.withOpacity(
-                                              0.5,
-                                            )
-                                          : AppColors.lightOnSurface
-                                                .withOpacity(0.5),
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                      left: 16,
+                      right: 16,
+                      top: 8,
+                      bottom: 8,
+                    ),
+                    child: Row(
+                      children: [
+                        // Image Section with padding
+                        Container(
+                          width: 140,
+                          height: 140,
+                          margin: const EdgeInsets.only(right: 16),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            boxShadow: isDark
+                                ? [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.3),
+                                      blurRadius: 8,
+                                      offset: const Offset(0, 4),
                                     ),
-                                  );
-                                },
-                              ),
-
-                              // Health/Diet badges
-                              Positioned(
-                                top: 8,
-                                left: 8,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    if (widget.isVegan)
-                                      _buildDietBadge('🌱', AppColors.success),
-                                    if (widget.isVegetarian && !widget.isVegan)
-                                      _buildDietBadge('🥬', AppColors.info),
-                                    if (widget.isGlutenFree)
-                                      _buildDietBadge('🚫', AppColors.warning),
+                                  ]
+                                : [
+                                    // Very subtle shadow for light mode
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.1),
+                                      blurRadius: 4,
+                                      offset: const Offset(0, 2),
+                                    ),
                                   ],
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(20),
+                            child: Stack(
+                              children: [
+                                Image.network(
+                                  widget.image,
+                                  width: double.infinity,
+                                  height: double.infinity,
+                                  fit: BoxFit.cover,
+                                  errorBuilder: (context, error, stackTrace) {
+                                    return Container(
+                                      color: isDark
+                                          ? AppColors.darkSurface
+                                          : AppColors.lightSurface,
+                                      child: Icon(
+                                        Icons.restaurant_rounded,
+                                        size: 40,
+                                        color: isDark
+                                            ? AppColors.darkOnSurface
+                                                  .withOpacity(0.5)
+                                            : AppColors.lightOnSurface
+                                                  .withOpacity(0.5),
+                                      ),
+                                    );
+                                  },
                                 ),
-                              ),
-                            ],
+
+                                // Health/Diet badges
+                                Positioned(
+                                  top: 8,
+                                  left: 8,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      if (widget.isVegan)
+                                        _buildDietBadge(
+                                          '🌱',
+                                          AppColors.success,
+                                        ),
+                                      if (widget.isVegetarian &&
+                                          !widget.isVegan)
+                                        _buildDietBadge('🥬', AppColors.info),
+                                      if (widget.isGlutenFree)
+                                        _buildDietBadge(
+                                          '🚫',
+                                          AppColors.warning,
+                                        ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
 
-                      // Content Section
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.all(16.0),
+                        // Content Section
+                        Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               // Title and Favorite Button
                               Row(
@@ -261,20 +292,20 @@ class _IOSRecipeListCardState extends State<IOSRecipeListCard>
                                       style: theme.textTheme.titleMedium
                                           ?.copyWith(
                                             fontWeight: FontWeight.w700,
-                                            fontSize: 16,
+                                            fontSize: 18,
                                             color: isDark
                                                 ? AppColors.darkOnSurface
                                                 : AppColors.lightOnSurface,
-                                            height: 1.2,
+                                            height: 1.3,
                                           ),
                                       maxLines: 2,
                                       overflow: TextOverflow.ellipsis,
                                     ),
                                   ),
-                                  const SizedBox(width: 8),
-                                  AnimatedFavoriteButton(
+                                  const SizedBox(width: 12),
+                                  EnhancedFavoriteButton(
                                     isFavorite: _isFavorite,
-                                    size: 20,
+                                    size: 24,
                                     onTap: () {
                                       setState(() {
                                         _isFavorite = !_isFavorite;
@@ -298,53 +329,49 @@ class _IOSRecipeListCardState extends State<IOSRecipeListCard>
                                 ],
                               ),
 
-                              const SizedBox(height: 8),
+                              const SizedBox(height: 12),
 
                               // Description
                               if (widget.description != null &&
                                   widget.description!.isNotEmpty)
-                                Expanded(
-                                  child: Text(
-                                    widget.description!,
-                                    style: theme.textTheme.bodySmall?.copyWith(
-                                      color:
-                                          (isDark
-                                                  ? AppColors.darkOnSurface
-                                                  : AppColors.lightOnSurface)
-                                              .withOpacity(0.7),
-                                      fontSize: 12,
-                                      height: 1.3,
-                                    ),
-                                    maxLines: 3,
-                                    overflow: TextOverflow.ellipsis,
+                                Text(
+                                  widget.description!,
+                                  style: theme.textTheme.bodyMedium?.copyWith(
+                                    color:
+                                        (isDark
+                                                ? AppColors.darkOnSurface
+                                                : AppColors.lightOnSurface)
+                                            .withOpacity(0.7),
+                                    fontSize: 14,
+                                    height: 1.4,
                                   ),
+                                  maxLines: 3,
+                                  overflow: TextOverflow.ellipsis,
                                 ),
 
-                              const Spacer(),
+                              const SizedBox(height: 16),
 
                               // Metadata Row
-                              Row(
+                              Wrap(
+                                spacing: 12,
+                                runSpacing: 8,
                                 children: [
-                                  if (widget.cookingTime != null) ...[
+                                  if (widget.cookingTime != null)
                                     _buildMetadataChip(
                                       Icons.schedule_rounded,
                                       '${widget.cookingTime} min',
                                       theme,
                                       isDark,
                                     ),
-                                    const SizedBox(width: 8),
-                                  ],
-                                  if (widget.servings != null) ...[
+                                  if (widget.servings != null)
                                     _buildMetadataChip(
                                       Icons.people_outline_rounded,
                                       '${widget.servings} servings',
                                       theme,
                                       isDark,
                                     ),
-                                    const SizedBox(width: 8),
-                                  ],
                                   if (widget.rating != null &&
-                                      widget.rating! > 0) ...[
+                                      widget.rating! > 0)
                                     _buildMetadataChip(
                                       Icons.star_rounded,
                                       widget.rating!.toStringAsFixed(1),
@@ -352,25 +379,23 @@ class _IOSRecipeListCardState extends State<IOSRecipeListCard>
                                       isDark,
                                       iconColor: AppColors.warning,
                                     ),
-                                  ],
-                                  const Spacer(),
                                   if (widget.healthScore != null &&
                                       widget.healthScore! > 0)
                                     Container(
                                       padding: const EdgeInsets.symmetric(
-                                        horizontal: 8,
-                                        vertical: 4,
+                                        horizontal: 10,
+                                        vertical: 6,
                                       ),
                                       decoration: BoxDecoration(
                                         color: _getHealthScoreColor(
                                           widget.healthScore!,
-                                        ).withOpacity(0.2),
-                                        borderRadius: BorderRadius.circular(12),
+                                        ).withOpacity(0.15),
+                                        borderRadius: BorderRadius.circular(16),
                                         border: Border.all(
                                           color: _getHealthScoreColor(
                                             widget.healthScore!,
                                           ).withOpacity(0.3),
-                                          width: 0.5,
+                                          width: 1,
                                         ),
                                       ),
                                       child: Text(
@@ -381,7 +406,7 @@ class _IOSRecipeListCardState extends State<IOSRecipeListCard>
                                                 widget.healthScore!,
                                               ),
                                               fontWeight: FontWeight.w600,
-                                              fontSize: 10,
+                                              fontSize: 11,
                                             ),
                                       ),
                                     ),
@@ -390,8 +415,8 @@ class _IOSRecipeListCardState extends State<IOSRecipeListCard>
                             ],
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -409,13 +434,7 @@ class _IOSRecipeListCardState extends State<IOSRecipeListCard>
       decoration: BoxDecoration(
         color: color.withOpacity(0.9),
         borderRadius: BorderRadius.circular(8),
-        boxShadow: [
-          BoxShadow(
-            color: color.withOpacity(0.3),
-            blurRadius: 4,
-            offset: const Offset(0, 2),
-          ),
-        ],
+        // Remove shadows from badges for cleaner look
       ),
       child: Text(emoji, style: const TextStyle(fontSize: 12)),
     );
@@ -428,22 +447,37 @@ class _IOSRecipeListCardState extends State<IOSRecipeListCard>
     bool isDark, {
     Color? iconColor,
   }) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Icon(icon, size: 14, color: iconColor ?? theme.colorScheme.secondary),
-        const SizedBox(width: 4),
-        Text(
-          text,
-          style: theme.textTheme.bodySmall?.copyWith(
-            color: isDark
-                ? AppColors.darkOnSurface.withOpacity(0.8)
-                : AppColors.lightOnSurface.withOpacity(0.8),
-            fontWeight: FontWeight.w500,
-            fontSize: 11,
-          ),
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      decoration: BoxDecoration(
+        color: isDark
+            ? AppColors.darkGlass.withOpacity(0.3)
+            : AppColors.lightGlass.withOpacity(0.3),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(
+          color: isDark
+              ? AppColors.darkGlassStroke.withOpacity(0.5)
+              : AppColors.lightGlassStroke.withOpacity(0.5),
+          width: 0.5,
         ),
-      ],
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, size: 14, color: iconColor ?? theme.colorScheme.secondary),
+          const SizedBox(width: 4),
+          Text(
+            text,
+            style: theme.textTheme.bodySmall?.copyWith(
+              color: isDark
+                  ? AppColors.darkOnSurface.withOpacity(0.9)
+                  : AppColors.lightOnSurface.withOpacity(0.9),
+              fontWeight: FontWeight.w600,
+              fontSize: 11,
+            ),
+          ),
+        ],
+      ),
     );
   }
 

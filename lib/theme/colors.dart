@@ -56,9 +56,9 @@ class AppColors {
     Color(0xFF3C3C3E),
   ];
 
-  // Shadow colors
-  static const Color lightShadow = Color(0x10000000);
-  static const Color darkShadow = Color(0x30000000);
+  // Shadow colors - lighter shadows for light mode, subtle for dark mode
+  static const Color lightShadow = Color(0x05000000); // Much lighter shadow
+  static const Color darkShadow = Color(0x20000000); // Reduced dark shadow
 
   // Status colors
   static const Color success = Color(0xFF34D399);
