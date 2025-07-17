@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../theme/colors.dart';
 import '../components/inputs/glassmorphic_search_bar.dart';
 import '../components/sections/enhanced_cuisine_section.dart';
-import '../components/sections/enhanced_popular_section.dart';
+import '../components/sections/enhanced_trending_section.dart';
 
 class HomePageBody extends StatefulWidget {
   const HomePageBody({super.key});
@@ -164,8 +164,8 @@ class _HomePageBodyState extends State<HomePageBody> {
 
           const SizedBox(height: 32),
 
-          // Enhanced Popular Section
-          const EnhancedPopularSection(),
+          // Enhanced Trending Section
+          const EnhancedTrendingSection(),
 
           const SizedBox(height: 100), // Bottom padding for navigation
         ],

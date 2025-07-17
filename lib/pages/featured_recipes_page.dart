@@ -270,8 +270,8 @@ class _FeaturedRecipesPageState extends State<FeaturedRecipesPage>
                 Text(
                   'Handpicked for You',
                   style: theme.textTheme.headlineMedium?.copyWith(
-                    fontWeight: FontWeight.w800,
-                    letterSpacing: -0.5,
+                    fontSize: 32,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
                 const SizedBox(height: 8),

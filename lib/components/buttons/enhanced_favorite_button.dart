@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'dart:ui';
 import '../../theme/colors.dart';
 
-/// Enhanced animated favorite button with glow effects and beautiful animations
+/// Enhanced favorite button with modern iOS 18 design - simplified and elegant
 class EnhancedFavoriteButton extends StatefulWidget {
   final bool isFavorite;
   final VoidCallback onTap;
@@ -25,78 +24,41 @@ class EnhancedFavoriteButton extends StatefulWidget {
 }
 
 class _EnhancedFavoriteButtonState extends State<EnhancedFavoriteButton>
-    with TickerProviderStateMixin {
-  late AnimationController _pulseController;
-  late AnimationController _bounceController;
-  late AnimationController _glowController;
-
-  late Animation<double> _pulseAnimation;
-  late Animation<double> _bounceAnimation;
-  late Animation<double> _glowAnimation;
-  late Animation<double> _rotationAnimation;
+    with SingleTickerProviderStateMixin {
+  late AnimationController _animationController;
+  late Animation<double> _scaleAnimation;
 
   @override
   void initState() {
     super.initState();
-
-    _pulseController = AnimationController(
-      duration: const Duration(milliseconds: 1000),
+    _animationController = AnimationController(
+      duration: const Duration(milliseconds: 200),
       vsync: this,
     );
 
-    _bounceController = AnimationController(
-      duration: const Duration(milliseconds: 400),
-      vsync: this,
+    _scaleAnimation = Tween<double>(begin: 1.0, end: 0.85).animate(
+      CurvedAnimation(parent: _animationController, curve: Curves.easeInOut),
     );
-
-    _glowController = AnimationController(
-      duration: const Duration(milliseconds: 800),
-      vsync: this,
-    );
-
-    _pulseAnimation = Tween<double>(begin: 1.0, end: 1.3).animate(
-      CurvedAnimation(parent: _pulseController, curve: Curves.easeInOut),
-    );
-
-    _bounceAnimation = Tween<double>(begin: 1.0, end: 1.4).animate(
-      CurvedAnimation(parent: _bounceController, curve: Curves.elasticOut),
-    );
-
-    _glowAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(parent: _glowController, curve: Curves.easeInOut),
-    );
-
-    _rotationAnimation = Tween<double>(begin: 0.0, end: 0.1).animate(
-      CurvedAnimation(parent: _bounceController, curve: Curves.elasticOut),
-    );
-
-    if (widget.isFavorite) {
-      _glowController.forward();
-    }
-  }
-
-  @override
-  void didUpdateWidget(EnhancedFavoriteButton oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (widget.isFavorite != oldWidget.isFavorite) {
-      if (widget.isFavorite) {
-        _bounceController.forward().then((_) => _bounceController.reverse());
-        _glowController.forward();
-        _pulseController.repeat();
-      } else {
-        _glowController.reverse();
-        _pulseController.stop();
-        _pulseController.reset();
-      }
-    }
   }
 
   @override
   void dispose() {
-    _pulseController.dispose();
-    _bounceController.dispose();
-    _glowController.dispose();
+    _animationController.dispose();
     super.dispose();
+  }
+
+  void _handleTapDown() {
+    _animationController.forward();
+  }
+
+  void _handleTapUp() {
+    _animationController.reverse();
+    HapticFeedback.lightImpact();
+    widget.onTap();
+  }
+
+  void _handleTapCancel() {
+    _animationController.reverse();
   }
 
   @override
@@ -104,137 +66,68 @@ class _EnhancedFavoriteButtonState extends State<EnhancedFavoriteButton>
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
 
-    final activeColor = widget.activeColor ?? AppColors.error;
+    final activeColor = widget.activeColor ?? Colors.red;
     final inactiveColor =
         widget.inactiveColor ??
         (isDark
-            ? AppColors.darkOnSurface.withValues(alpha: 0.4)
-            : AppColors.lightOnSurface.withValues(alpha: 0.4));
+            ? AppColors.darkOnSurface.withOpacity(0.6)
+            : AppColors.lightOnSurface.withOpacity(0.6));
 
     return AnimatedBuilder(
-      animation: Listenable.merge([
-        _pulseController,
-        _bounceController,
-        _glowController,
-      ]),
+      animation: _animationController,
       builder: (context, child) {
         return GestureDetector(
-          onTap: () {
-            HapticFeedback.lightImpact();
-            widget.onTap();
-          },
-          child: SizedBox(
-            width: widget.size + 20,
-            height: widget.size + 20,
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                // Glow effect
-                if (widget.isFavorite)
-                  Container(
-                    width: (widget.size + 10) * _pulseAnimation.value,
-                    height: (widget.size + 10) * _pulseAnimation.value,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      gradient: RadialGradient(
-                        colors: [
-                          activeColor.withValues(
-                            alpha: 0.4 * _glowAnimation.value,
-                          ),
-                          activeColor.withValues(
-                            alpha: 0.1 * _glowAnimation.value,
-                          ),
-                          Colors.transparent,
-                        ],
-                      ),
-                    ),
-                  ),
-
-                // Backdrop blur container
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(widget.size),
-                  child: BackdropFilter(
-                    filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                    child: Container(
-                      width: widget.size + 16,
-                      height: widget.size + 16,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        gradient: LinearGradient(
-                          colors: isDark
-                              ? [
-                                  AppColors.darkGlass.withValues(alpha: 0.8),
-                                  AppColors.darkGlass.withValues(alpha: 0.6),
-                                ]
-                              : [
-                                  AppColors.lightGlass.withValues(alpha: 0.8),
-                                  AppColors.lightGlass.withValues(alpha: 0.6),
-                                ],
+          onTapDown: (_) => _handleTapDown(),
+          onTapUp: (_) => _handleTapUp(),
+          onTapCancel: _handleTapCancel,
+          child: Transform.scale(
+            scale: _scaleAnimation.value,
+            child: Container(
+              width: widget.size + 16,
+              height: widget.size + 16,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: widget.isFavorite
+                    ? activeColor.withOpacity(0.1)
+                    : (isDark
+                        ? AppColors.darkSurface.withOpacity(0.3)
+                        : AppColors.lightSurface.withOpacity(0.3)),
+                border: widget.isFavorite
+                    ? Border.all(
+                        color: activeColor.withOpacity(0.3),
+                        width: 1.5,
+                      )
+                    : null,
+                boxShadow: widget.isFavorite
+                    ? [
+                        BoxShadow(
+                          color: activeColor.withOpacity(0.2),
+                          blurRadius: 12,
+                          offset: const Offset(0, 4),
                         ),
-                        border: Border.all(
-                          color: widget.isFavorite
-                              ? activeColor.withValues(alpha: 0.6)
-                              : (isDark
-                                    ? AppColors.darkGlassStroke
-                                    : AppColors.lightGlassStroke),
-                          width: widget.isFavorite ? 2 : 1,
+                      ]
+                    : [
+                        BoxShadow(
+                          color: (isDark ? Colors.black : Colors.grey.shade400)
+                              .withOpacity(0.1),
+                          blurRadius: 8,
+                          offset: const Offset(0, 2),
                         ),
-                        boxShadow: [
-                          BoxShadow(
-                            color: widget.isFavorite
-                                ? activeColor.withValues(alpha: 0.3)
-                                : (isDark ? Colors.black : Colors.grey.shade300)
-                                      .withValues(alpha: 0.2),
-                            blurRadius: widget.isFavorite ? 20 : 12,
-                            spreadRadius: widget.isFavorite ? 2 : 0,
-                          ),
-                        ],
-                      ),
-                      child: Transform.scale(
-                        scale: _bounceAnimation.value,
-                        child: Transform.rotate(
-                          angle: _rotationAnimation.value,
-                          child: Icon(
-                            widget.isFavorite
-                                ? Icons.favorite_rounded
-                                : Icons.favorite_border_rounded,
-                            size: widget.size,
-                            color: widget.isFavorite
-                                ? activeColor
-                                : inactiveColor,
-                          ),
-                        ),
-                      ),
-                    ),
+                      ],
+              ),
+              child: Center(
+                child: AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 200),
+                  child: Icon(
+                    widget.isFavorite
+                        ? Icons.favorite_rounded
+                        : Icons.favorite_border_rounded,
+                    key: ValueKey(widget.isFavorite),
+                    size: widget.size,
+                    color: widget.isFavorite ? activeColor : inactiveColor,
                   ),
                 ),
-
-                // Shimmer effect when favorited
-                if (widget.isFavorite)
-                  Positioned.fill(
-                    child: AnimatedBuilder(
-                      animation: _glowController,
-                      builder: (context, child) {
-                        return Container(
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            gradient: LinearGradient(
-                              colors: [
-                                Colors.transparent,
-                                Colors.white.withValues(
-                                  alpha: 0.3 * _glowAnimation.value,
-                                ),
-                                Colors.transparent,
-                              ],
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-              ],
+              ),
             ),
           ),
         );

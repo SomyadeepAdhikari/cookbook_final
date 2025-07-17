@@ -116,7 +116,7 @@ class _GlassmorphicSearchBarState extends State<GlassmorphicSearchBar>
         boxShadow: [
           BoxShadow(
             color: isDark ? AppColors.darkShadow : AppColors.lightShadow,
-            blurRadius: _isFocused ? 20 : 10,
+            blurRadius: 10,
             offset: const Offset(0, 5),
           ),
         ],
@@ -132,14 +132,6 @@ class _GlassmorphicSearchBarState extends State<GlassmorphicSearchBar>
                   ? AppColors.darkGlass.withValues(alpha: 0.9)
                   : AppColors.lightGlass.withValues(alpha: 0.9),
               borderRadius: BorderRadius.circular(25),
-              border: Border.all(
-                color: _isFocused
-                    ? theme.colorScheme.secondary.withValues(alpha: 0.5)
-                    : (isDark
-                          ? AppColors.darkGlassStroke
-                          : AppColors.lightGlassStroke),
-                width: _isFocused ? 2 : 1,
-              ),
               gradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
@@ -160,6 +152,9 @@ class _GlassmorphicSearchBarState extends State<GlassmorphicSearchBar>
                       ? AppColors.darkOnSurface
                       : AppColors.lightOnSurface,
                 ),
+                cursorColor: isDark
+                    ? AppColors.darkAccent
+                    : AppColors.lightAccent,
                 decoration: InputDecoration(
                   hintText: widget.hintText,
                   hintStyle: theme.textTheme.bodyMedium?.copyWith(
@@ -198,11 +193,11 @@ class _GlassmorphicSearchBarState extends State<GlassmorphicSearchBar>
                                   icon: Icon(
                                     Icons.clear,
                                     color: isDark
-                                        ? AppColors.darkOnSurface.withValues(alpha: 
-                                            0.7,
+                                        ? AppColors.darkOnSurface.withValues(
+                                            alpha: 0.7,
                                           )
-                                        : AppColors.lightOnSurface.withValues(alpha: 
-                                            0.7,
+                                        : AppColors.lightOnSurface.withValues(
+                                            alpha: 0.7,
                                           ),
                                     size: 20,
                                   ),
