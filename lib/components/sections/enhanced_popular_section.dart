@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../cards/featured_recipe_card.dart';
 import '../../theme/colors.dart';
 import '../../theme/animations.dart';
+import '../buttons/glassmorphic_see_all_button.dart';
 
 class EnhancedPopularSection extends StatefulWidget {
   const EnhancedPopularSection({super.key});
@@ -192,28 +193,11 @@ class _EnhancedPopularSectionState extends State<EnhancedPopularSection>
                   ],
                 ),
               ),
-              TextButton(
-                onPressed: () {
+              GlassmorphicSeeAllButton(
+                text: 'See All',
+                onTap: () {
                   // Navigate to trending page
                 },
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      'See All',
-                      style: theme.textTheme.bodyMedium?.copyWith(
-                        color: theme.colorScheme.secondary,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    const SizedBox(width: 4),
-                    Icon(
-                      Icons.arrow_forward_ios,
-                      size: 14,
-                      color: theme.colorScheme.secondary,
-                    ),
-                  ],
-                ),
               ),
             ],
           ),

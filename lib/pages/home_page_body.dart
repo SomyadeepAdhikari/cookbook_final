@@ -1,10 +1,9 @@
-import 'package:cookbook_final/widget/display_tile.dart';
+import 'package:cookbook_final/components/sections/enhanced_featured_section.dart';
 import 'package:flutter/material.dart';
 import '../theme/colors.dart';
 import '../components/inputs/glassmorphic_search_bar.dart';
 import '../components/sections/enhanced_cuisine_section.dart';
 import '../components/sections/enhanced_popular_section.dart';
-import 'featured_recipes_page.dart';
 
 class HomePageBody extends StatefulWidget {
   const HomePageBody({super.key});
@@ -47,7 +46,9 @@ class _HomePageBodyState extends State<HomePageBody> {
                     borderRadius: BorderRadius.circular(16),
                     boxShadow: [
                       BoxShadow(
-                        color: theme.colorScheme.secondary.withValues(alpha: 0.3),
+                        color: theme.colorScheme.secondary.withValues(
+                          alpha: 0.3,
+                        ),
                         blurRadius: 12,
                         offset: const Offset(0, 4),
                       ),
@@ -64,7 +65,9 @@ class _HomePageBodyState extends State<HomePageBody> {
                             gradient: LinearGradient(
                               colors: [
                                 theme.colorScheme.secondary,
-                                theme.colorScheme.secondary.withValues(alpha: 0.7),
+                                theme.colorScheme.secondary.withValues(
+                                  alpha: 0.7,
+                                ),
                               ],
                             ),
                             borderRadius: BorderRadius.circular(16),
@@ -151,101 +154,8 @@ class _HomePageBodyState extends State<HomePageBody> {
 
           const SizedBox(height: 30),
 
-          // Featured Recipes Section
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24.0),
-            child: Row(
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [Colors.purple, Colors.blue],
-                    ),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: const Icon(Icons.star, color: Colors.white, size: 20),
-                ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Featured Recipes',
-                        style: theme.textTheme.headlineSmall?.copyWith(
-                          color: isDark
-                              ? AppColors.darkOnSurface
-                              : AppColors.lightOnSurface,
-                          fontWeight: FontWeight.w800,
-                        ),
-                      ),
-                      Text(
-                        'Handpicked by our chefs',
-                        style: theme.textTheme.bodySmall?.copyWith(
-                          color:
-                              (isDark
-                                      ? AppColors.darkOnSurface
-                                      : AppColors.lightOnSurface)
-                                  .withValues(alpha: 0.7),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).push(
-                      PageRouteBuilder(
-                        pageBuilder: (context, animation, secondaryAnimation) =>
-                            const FeaturedRecipesPage(),
-                        transitionsBuilder:
-                            (context, animation, secondaryAnimation, child) {
-                              const begin = Offset(1.0, 0.0);
-                              const end = Offset.zero;
-                              const curve = Curves.easeInOutCubic;
-
-                              var tween = Tween(
-                                begin: begin,
-                                end: end,
-                              ).chain(CurveTween(curve: curve));
-
-                              return SlideTransition(
-                                position: animation.drive(tween),
-                                child: child,
-                              );
-                            },
-                        transitionDuration: const Duration(milliseconds: 400),
-                      ),
-                    );
-                  },
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        'See All',
-                        style: theme.textTheme.bodyMedium?.copyWith(
-                          color: theme.colorScheme.secondary,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      const SizedBox(width: 4),
-                      Icon(
-                        Icons.arrow_forward_ios,
-                        size: 14,
-                        color: theme.colorScheme.secondary,
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-
-          const SizedBox(height: 16),
-
-          // Featured Recipes Carousel
-          SizedBox(height: 260, child: const DisplayTile()),
+          // Enhanced Featured Recipes Section
+          const EnhancedFeaturedSection(),
 
           const SizedBox(height: 32),
 

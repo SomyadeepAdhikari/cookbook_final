@@ -4,6 +4,7 @@ import '../../pages/cuisines_page.dart';
 import '../../pages/all_cuisines_page.dart';
 import '../../globals.dart';
 import '../../theme/colors.dart';
+import '../buttons/glassmorphic_see_all_button.dart';
 
 class EnhancedCuisineSection extends StatefulWidget {
   const EnhancedCuisineSection({super.key});
@@ -107,8 +108,9 @@ class _EnhancedCuisineSectionState extends State<EnhancedCuisineSection> {
                   ],
                 ),
               ),
-              TextButton(
-                onPressed: () {
+              GlassmorphicSeeAllButton(
+                text: 'View All',
+                onTap: () {
                   Navigator.of(context).push(
                     PageRouteBuilder(
                       pageBuilder: (context, animation, secondaryAnimation) =>
@@ -133,24 +135,6 @@ class _EnhancedCuisineSectionState extends State<EnhancedCuisineSection> {
                     ),
                   );
                 },
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      'View All',
-                      style: theme.textTheme.bodyMedium?.copyWith(
-                        color: theme.colorScheme.secondary,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    const SizedBox(width: 4),
-                    Icon(
-                      Icons.arrow_forward_ios,
-                      size: 14,
-                      color: theme.colorScheme.secondary,
-                    ),
-                  ],
-                ),
               ),
             ],
           ),
