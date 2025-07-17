@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<full-backup-content>
+    <!-- Include Hive database files -->
+    <include domain="database" path="." />
+    
+    <!-- Include shared preferences -->
+    <include domain="sharedpref" path="." />
+    
+    <!-- Include specific app files only -->
+    <include domain="file" path="hive/" />
+    <include domain="file" path="preferences/" />
+</full-backup-content>

@@ -1,8 +1,39 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <!-- Network Permissions -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    
+    <!-- Storage Permissions for local database -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" 
+        android:maxSdkVersion="28" />
+    
+    <!-- Vibration Permission for haptic feedback -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+    
+    <!-- Wake Lock Permission for background processing -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    
+    <!-- Network Security Config for HTTP requests -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    
+    <!-- Notification Permission for Android 13+ -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    
+    <!-- Foreground Service Permission (if needed for background tasks) -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    
     <application
         android:label="CookBook"
         android:name="${applicationName}"
-        android:icon="@mipmap/launcher_icon">
+        android:icon="@mipmap/launcher_icon"
+        android:usesCleartextTraffic="true"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:allowBackup="true"
+        android:fullBackupContent="@xml/backup_rules"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:enableOnBackInvokedCallback="true">
         <activity
             android:name=".MainActivity"
             android:exported="true"
