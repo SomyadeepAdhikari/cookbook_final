@@ -1,80 +1,133 @@
-import 'package:cookbook_final/model/favorite.dart';
 import 'package:flutter/material.dart';
-import 'package:isar/isar.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'favorite_hive.dart';
 
 class FavoritesDatabase extends ChangeNotifier {
-  static late Isar isar;
+  static const String _boxName = 'favorites';
+  Box<FavoriteRecipe>? _favoritesBox;
 
-  //Initialise database
+  // Getter for the box
+  Box<FavoriteRecipe> get _box {
+    if (_favoritesBox?.isOpen != true) {
+      throw Exception('FavoritesDatabase not initialized. Call initialize() first.');
+    }
+    return _favoritesBox!;
+  }
+
+  /// Initialize the Hive database
   static Future<void> initialize() async {
-    final dir = await getApplicationDocumentsDirectory();
-    isar = await (Isar.open([FavoriteSchema], directory: dir.path));
+    await Hive.initFlutter();
+    
+    // Register the adapter if not already registered
+    if (!Hive.isAdapterRegistered(0)) {
+      Hive.registerAdapter(FavoriteRecipeAdapter());
+    }
   }
 
-  // A list of favorites
-  final List<Favorite> currentFavorites = [];
-
-  // add favorite
-  Future<void> addFavorite(String text, int newid, String newimage) async {
-    final newFavourite = Favorite()..realid = newid;
-    newFavourite.image = newimage;
-    newFavourite.name = text;
-    // create a new favorite object
-
-    // save to db
-    await isar.writeTxn(() => isar.favorites.put(newFavourite));
-    fetchFavorites();
+  /// Open the favorites box
+  Future<void> openBox() async {
+    if (_favoritesBox?.isOpen != true) {
+      _favoritesBox = await Hive.openBox<FavoriteRecipe>(_boxName);
+    }
   }
 
-  // check if the item is already in favorites
-  Future<bool> checkId(int id) async {
-    final fav = Favorite()..realid = id;
-    final isexisting = await isar.favorites.get(fav.id);
-    if (isexisting != null) {
-      return true;
-    } else {
+  /// Close the database
+  Future<void> close() async {
+    await _favoritesBox?.close();
+    _favoritesBox = null;
+  }
+
+  /// Get all current favorites
+  List<FavoriteRecipe> get currentFavorites {
+    try {
+      return _box.values.toList()
+        ..sort((a, b) => b.addedAt.compareTo(a.addedAt)); // Most recent first
+    } catch (e) {
+      debugPrint('Error getting favorites: $e');
+      return [];
+    }
+  }
+
+  /// Add a recipe to favorites
+  Future<void> addFavorite(String name, int recipeId, String image) async {
+    try {
+      final favorite = FavoriteRecipe(
+        id: recipeId,
+        name: name,
+        image: image,
+      );
+      
+      await _box.put(recipeId, favorite);
+      notifyListeners();
+    } catch (e) {
+      debugPrint('Error adding favorite: $e');
+    }
+  }
+
+  /// Remove a recipe from favorites by ID
+  Future<void> deleteId(int recipeId) async {
+    try {
+      await _box.delete(recipeId);
+      notifyListeners();
+    } catch (e) {
+      debugPrint('Error deleting favorite: $e');
+    }
+  }
+
+  /// Check if a recipe is in favorites
+  bool checkIfFav(int recipeId) {
+    try {
+      return _box.containsKey(recipeId);
+    } catch (e) {
+      debugPrint('Error checking if favorite: $e');
       return false;
     }
   }
 
-  // delete fav with realid
-  Future<void> deleteId(int id) async {
-    //final fav = Favorite()..realid = id;
-    int newnewId = -1;
-    Favorite a;
-    for (a in currentFavorites) {
-      if (a.realid == id) {
-        newnewId = a.id;
-        break;
-      }
+  /// Get a specific favorite by ID
+  FavoriteRecipe? getFavorite(int recipeId) {
+    try {
+      return _box.get(recipeId);
+    } catch (e) {
+      debugPrint('Error getting favorite: $e');
+      return null;
     }
-    deleteFavorite(newnewId);
   }
 
-  // Read favorites from db
+  /// Clear all favorites
+  Future<void> clearAllFavorites() async {
+    try {
+      await _box.clear();
+      notifyListeners();
+    } catch (e) {
+      debugPrint('Error clearing favorites: $e');
+    }
+  }
+
+  /// Get the count of favorites
+  int get favoritesCount {
+    try {
+      return _box.length;
+    } catch (e) {
+      debugPrint('Error getting favorites count: $e');
+      return 0;
+    }
+  }
+
+  /// Fetch favorites (for compatibility with existing code)
   Future<void> fetchFavorites() async {
-    List<Favorite> fetchedFavorite = await isar.favorites.where().findAll();
-    currentFavorites.clear();
-    currentFavorites.addAll(fetchedFavorite);
+    // This method is kept for compatibility
+    // Hive automatically keeps data in sync, so we just notify listeners
     notifyListeners();
   }
 
-  // remove favorite
-  Future<void> deleteFavorite(int id) async {
-    await isar.writeTxn(() => isar.favorites.delete(id));
-    await fetchFavorites();
+  /// Legacy method for compatibility
+  Future<bool> checkId(int id) async {
+    return checkIfFav(id);
   }
 
-  bool checkIfFav(int recipeId) {
-    Favorite currentItem;
-    for (currentItem in currentFavorites) {
-      if (currentItem.realid == recipeId) {
-        fetchFavorites();
-        return true;
-      }
-    }
-    fetchFavorites();
-    return false;
+  /// Legacy method for compatibility  
+  Future<void> deleteFavorite(int id) async {
+    await deleteId(id);
   }
 }

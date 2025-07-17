@@ -1,4 +1,3 @@
-import 'package:cookbook_final/model/favorite.dart';
 import 'package:cookbook_final/model/favorites_database.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -6,6 +5,7 @@ import '../theme/colors.dart';
 import '../theme/animations.dart';
 import '../components/cards/ios_favorite_card.dart';
 import '../components/layout/gradient_background.dart';
+import '../model/favorite_hive.dart';
 
 class FavoritePage extends StatefulWidget {
   const FavoritePage({super.key});
@@ -53,7 +53,7 @@ class _FavoritePageState extends State<FavoritePage>
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
     final favoriteDatabase = context.watch<FavoritesDatabase>();
-    List<Favorite> currentFavorites = favoriteDatabase.currentFavorites;
+    List<FavoriteRecipe> currentFavorites = favoriteDatabase.currentFavorites;
 
     return GradientBackground(
       isDark: isDark,
@@ -219,7 +219,10 @@ class _FavoritePageState extends State<FavoritePage>
     );
   }
 
-  Widget _buildFavoritesList(BuildContext context, List<Favorite> favorites) {
+  Widget _buildFavoritesList(
+    BuildContext context,
+    List<FavoriteRecipe> favorites,
+  ) {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
 
@@ -306,8 +309,8 @@ class _FavoritePageState extends State<FavoritePage>
                 bottom: index == favorites.length - 1 ? 100.0 : 0.0,
               ),
               child: IOSFavoriteCard(
-                realId: currentFavorite.realid,
-                id: currentFavorite.id,
+                realId: currentFavorite.id,
+                id: currentFavorite.key ?? 0, // Hive object key
                 title: currentFavorite.name,
                 image: currentFavorite.image,
                 onDelete: () {

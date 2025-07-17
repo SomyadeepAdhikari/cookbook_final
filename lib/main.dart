@@ -6,11 +6,18 @@ import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Initialize Hive database
   await FavoritesDatabase.initialize();
+
+  // Create database instance and open the box
+  final favoritesDb = FavoritesDatabase();
+  await favoritesDb.openBox();
+
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => FavoritesDatabase()),
+        ChangeNotifierProvider.value(value: favoritesDb),
         ChangeNotifierProvider(create: (context) => ThemeProvider()),
       ],
       child: const MyApp(),
