@@ -30,6 +30,11 @@ class AppColors {
   static const Color darkGlass = Color(0x30000000);
   static const Color darkGlassStroke = Color(0x20FFFFFF);
 
+  // Enhanced glassmorphic navigation colors
+  static const Color lightNavGlass = Color(0xF5FFFFFF); // More opaque for navigation
+  static const Color darkNavGlass = Color(0xD91C1C1E); // Rich dark glass
+  static const Color darkNavStroke = Color(0x1FFFFFFF); // Subtle border
+
   // Gradient colors
   static const List<Color> lightGradient = [
     Color(0xFFF8F9FA),

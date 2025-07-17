@@ -97,37 +97,56 @@ class _ModernBottomNavState extends State<ModernBottomNav>
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
         boxShadow: [
+          // Enhanced shadow for better depth
           BoxShadow(
-            color: isDark ? AppColors.darkShadow : AppColors.lightShadow,
-            blurRadius: 20,
-            offset: const Offset(0, 10),
+            color: isDark 
+                ? Colors.black.withValues(alpha: 0.4)
+                : Colors.grey.shade300.withValues(alpha: 0.3),
+            blurRadius: 25,
+            offset: const Offset(0, 12),
+            spreadRadius: 0,
           ),
+          if (isDark)
+            BoxShadow(
+              color: Colors.white.withValues(alpha: 0.03),
+              blurRadius: 1,
+              offset: const Offset(0, 1),
+            ),
         ],
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(30),
         child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+          filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
           child: Container(
             height: 90,
             decoration: BoxDecoration(
+              // Enhanced glassmorphic background
               color: isDark
-                  ? AppColors.darkSurface.withValues(alpha: 0.9)
-                  : AppColors.lightSurface.withValues(alpha: 0.9),
+                  ? const Color(0xFF1C1C1E).withValues(alpha: 0.85)
+                  : Colors.white.withValues(alpha: 0.9),
               borderRadius: BorderRadius.circular(30),
               border: Border.all(
                 color: isDark
-                    ? AppColors.darkGlassStroke
-                    : AppColors.lightGlassStroke,
-                width: 1,
+                    ? Colors.white.withValues(alpha: 0.12)
+                    : Colors.white.withValues(alpha: 0.3),
+                width: 1.5,
               ),
               gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  Colors.white.withValues(alpha: isDark ? 0.1 : 0.2),
-                  Colors.white.withValues(alpha: isDark ? 0.05 : 0.1),
-                ],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: isDark
+                    ? [
+                        Colors.white.withValues(alpha: 0.08),
+                        Colors.white.withValues(alpha: 0.02),
+                        const Color(0xFF2C2C2E).withValues(alpha: 0.4),
+                      ]
+                    : [
+                        Colors.white.withValues(alpha: 0.3),
+                        Colors.white.withValues(alpha: 0.15),
+                        Colors.grey.shade50.withValues(alpha: 0.1),
+                      ],
+                stops: const [0.0, 0.5, 1.0],
               ),
             ),
             child: Row(
@@ -159,48 +178,70 @@ class _ModernBottomNavState extends State<ModernBottomNav>
                                 mainAxisSize: MainAxisSize.min,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  // Icon with animated background
+                                  // Icon with enhanced glassmorphic background
                                   Container(
-                                    padding: const EdgeInsets.all(6),
+                                    padding: const EdgeInsets.all(8),
                                     decoration: BoxDecoration(
                                       shape: BoxShape.circle,
                                       color: isSelected
-                                          ? theme.colorScheme.secondary
-                                                .withValues(alpha: 0.2)
+                                          ? (isDark
+                                              ? theme.colorScheme.secondary.withValues(alpha: 0.15)
+                                              : theme.colorScheme.secondary.withValues(alpha: 0.12))
                                           : Colors.transparent,
+                                      // Enhanced glassmorphic effect for active state
+                                      boxShadow: isSelected
+                                          ? [
+                                              BoxShadow(
+                                                color: isDark
+                                                    ? theme.colorScheme.secondary.withValues(alpha: 0.2)
+                                                    : theme.colorScheme.secondary.withValues(alpha: 0.1),
+                                                blurRadius: 8,
+                                                spreadRadius: 0,
+                                              ),
+                                            ]
+                                          : null,
+                                      border: isSelected
+                                          ? Border.all(
+                                              color: isDark
+                                                  ? theme.colorScheme.secondary.withValues(alpha: 0.3)
+                                                  : theme.colorScheme.secondary.withValues(alpha: 0.2),
+                                              width: 1,
+                                            )
+                                          : null,
                                     ),
                                     child: Icon(
                                       isSelected ? item.activeIcon : item.icon,
-                                      size: 24,
+                                      size: 22,
                                       color: isSelected
-                                          ? theme.colorScheme.secondary
+                                          ? (isDark 
+                                              ? theme.colorScheme.secondary.withValues(alpha: 0.95)
+                                              : theme.colorScheme.secondary)
                                           : (isDark
-                                                ? AppColors.darkOnSurface
-                                                      .withValues(alpha: 0.6)
-                                                : AppColors.lightOnSurface
-                                                      .withValues(alpha: 0.6)),
+                                                ? AppColors.darkOnSurface.withValues(alpha: 0.7)
+                                                : AppColors.lightOnSurface.withValues(alpha: 0.65)),
                                     ),
                                   ),
 
-                                  const SizedBox(height: 1),
+                                  const SizedBox(height: 2),
 
-                                  // Label with smooth transitions
+                                  // Label with enhanced dark mode styling
                                   Flexible(
                                     child: AnimatedDefaultTextStyle(
                                       duration: AppAnimations.fast,
                                       style: theme.textTheme.labelSmall!
                                           .copyWith(
                                             color: isSelected
-                                                ? theme.colorScheme.secondary
+                                                ? (isDark
+                                                    ? theme.colorScheme.secondary.withValues(alpha: 0.9)
+                                                    : theme.colorScheme.secondary)
                                                 : (isDark
-                                                      ? AppColors.darkOnSurface
-                                                            .withValues(alpha: 0.6)
-                                                      : AppColors.lightOnSurface
-                                                            .withValues(alpha: 0.6)),
+                                                      ? AppColors.darkOnSurface.withValues(alpha: 0.7)
+                                                      : AppColors.lightOnSurface.withValues(alpha: 0.65)),
                                             fontWeight: isSelected
                                                 ? FontWeight.w600
-                                                : FontWeight.w400,
+                                                : FontWeight.w500,
                                             fontSize: 10,
+                                            letterSpacing: 0.2,
                                           ),
                                       child: Text(
                                         item.label,
